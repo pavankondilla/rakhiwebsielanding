@@ -1,0 +1,14 @@
+# Editor / OS
+.DS_Store
+Thumbs.db
+.thumbnail
+*.log
+
+# Local Claude Code settings
+.claude/settings.local.json
+
+# Design-tool source + its runtime (not needed by the published site)
+*.dc.html
+support.js
+image-slot.js
+uploads/

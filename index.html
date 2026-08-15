@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bandhan.ai — The world's first AI rakhi</title>
+<meta name="description" content="Bandhan.ai is the world's first AI rakhi. Tie a real rakhi in AR on your brother's wrist from anywhere on earth, in your own voice. First access opens 24 August 2026.">
+<meta name="theme-color" content="#240A10">
+<meta name="color-scheme" content="dark">
+<link rel="canonical" href="https://www.airakhi.online/">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Bandhan.ai">
+<meta property="og:title" content="Bandhan.ai — The world's first AI rakhi">
+<meta property="og:description" content="Tie a real rakhi in AR, in your own voice, from anywhere on earth. First access opens 24 August 2026.">
+<meta property="og:url" content="https://www.airakhi.online/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Bandhan.ai — The world's first AI rakhi">
+<meta name="twitter:description" content="Tie a real rakhi in AR, in your own voice, from anywhere on earth.">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23240A10'/%3E%3Ccircle cx='32' cy='32' r='15' fill='%23DFB05A'/%3E%3Ccircle cx='27' cy='27' r='6' fill='%23F0D9A4'/%3E%3Ccircle cx='32' cy='32' r='5' fill='%23C8213D'/%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Karla:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Karla:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Karla:wght@400;500;600;700&display=swap"></noscript>
+
+<style>
+:root{
+  --ink:#240A10;
+  --ink-2:#2C0E15;
+  --ink-3:#320F17;
+  --cream:#F7EAE6;
+  --cream-80:rgba(247,234,230,.80);
+  --cream-72:rgba(247,234,230,.72);
+  --cream-62:rgba(247,234,230,.62);
+  --line:rgba(247,234,230,.14);
+  --rose:#F0657A;
+  --rose-deep:#C8213D;
+  --rose-dark:#A81733;
+  --gold:#DFB05A;
+  --gold-soft:#F0D9A4;
+  --serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+  --sans:Karla,system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --pad:clamp(18px,3vw,32px);
+  --wrap:1200px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  margin:0;background:var(--ink);color:var(--cream);
+  font-family:var(--sans);font-size:16px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+  overflow-x:hidden;
+}
+img,svg{max-width:100%;display:block}
+a{color:var(--rose);text-decoration:none;transition:color .18s ease}
+a:hover{color:var(--gold)}
+h1,h2,h3{margin:0;font-weight:400}
+p{text-wrap:pretty}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:6px}
+
+.wrap{max-width:var(--wrap);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+.eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+.h2{font-family:var(--serif);font-size:clamp(28px,2.6vw + 12px,54px);line-height:1.08;letter-spacing:-.015em;margin-top:14px}
+.lede{margin:18px 0 0;max-width:62ch;font-size:clamp(15px,.4vw + 13px,16.5px);line-height:1.7;color:var(--cream-80)}
+.sec{padding-top:clamp(58px,7vw,96px);scroll-margin-top:78px}
+.band{margin-top:clamp(58px,7vw,104px);padding:clamp(56px,6.6vw,88px) 0;background:var(--ink-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);scroll-margin-top:78px}
+.card{background:var(--ink-2);border:1px solid var(--line);border-radius:20px}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  padding:14px 26px;border-radius:999px;border:0;cursor:pointer;
+  background:var(--rose-deep);color:#FFF6F7;
+  font-family:var(--sans);font-size:15px;font-weight:700;line-height:1;
+  box-shadow:0 12px 30px -14px rgba(240,101,122,.75);
+  transition:background .18s ease,transform .18s ease;white-space:nowrap;
+}
+.btn:hover{background:var(--rose-dark);color:#FFF6F7;transform:translateY(-1px)}
+.btn:disabled{opacity:.62;cursor:progress;transform:none}
+.btn-lg{padding:clamp(15px,1.2vw,18px) clamp(26px,2.6vw,34px);font-size:clamp(15px,.4vw + 13px,16.5px)}
+
+/* ---------- header ---------- */
+.hdr{position:sticky;top:0;z-index:60;background:rgba(36,10,16,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(247,234,230,.12)}
+.hdr-in{max-width:var(--wrap);margin:0 auto;padding:13px var(--pad);display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:nowrap}
+.brand{display:flex;align-items:center;gap:11px;color:var(--cream)}
+.brand:hover{color:var(--cream)}
+.dot{width:32px;height:32px;border-radius:50%;background:radial-gradient(circle at 32% 30%,var(--gold-soft),var(--gold) 62%,var(--rose));box-shadow:0 2px 10px rgba(240,101,122,.3);flex:0 0 auto}
+.brand span{font-family:var(--serif);font-size:22px;font-weight:600;letter-spacing:.01em}
+.nav{display:flex;align-items:center;gap:28px;font-size:14px;font-weight:500}
+.nav a{color:var(--cream-72)}
+.nav a:hover{color:var(--cream)}
+.nav .btn{padding:10px 20px;font-size:14px;color:#FFF6F7}
+@media(max-width:820px){.nav .lnk{display:none}}
+@media(max-width:400px){
+  .brand span:last-child{font-size:19px}
+  .nav .btn{padding:9px 15px;font-size:13px}
+  .count div{padding:11px 8px;min-width:0;flex:1 1 0}
+  .count small{font-size:8.5px;letter-spacing:.08em}
+}
+
+/* ---------- hero ---------- */
+.hero{max-width:var(--wrap);margin:0 auto;padding:clamp(30px,4vw,56px) var(--pad) 0;text-align:center;min-height:min(88svh,900px);display:flex;flex-direction:column;align-items:center;justify-content:center}
+.pill{display:inline-flex;align-items:center;gap:10px;padding:7px 16px 7px 10px;border-radius:999px;border:1px solid rgba(223,176,90,.4);font-size:clamp(10px,.35vw + 9px,12.5px);font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gold)}
+.ring{position:relative;display:inline-flex;width:8px;height:8px;flex:0 0 auto}
+.ring i,.ring b{position:absolute;inset:0;border-radius:50%;background:var(--gold)}
+.ring i{animation:pulseRing 2.4s ease-out infinite}
+@keyframes pulseRing{0%{transform:scale(1);opacity:.5}70%,100%{transform:scale(1.9);opacity:0}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+@keyframes drift{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+h1.hero-h{margin:clamp(24px,3.4vw,50px) auto 0;max-width:min(96vw,1080px)}
+.kicker{display:block;font-family:var(--sans);font-size:clamp(10.5px,.3vw + 9px,13px);font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--gold)}
+.stat-line{display:flex;align-items:baseline;justify-content:center;flex-wrap:wrap;gap:.45em;margin-top:clamp(14px,2vw,26px);font-family:var(--serif);font-size:clamp(21px,1.1vw + 15px,34px)}
+.stat-line b{color:var(--rose);font-weight:600}
+.stat-line em{color:var(--cream-72);font-size:.82em}
+.typeline{display:block;position:relative;margin-top:clamp(4px,.6vw,10px);font-family:var(--serif);font-weight:600;font-size:clamp(34px,10.4vw,150px);line-height:1.04;letter-spacing:-.03em;color:var(--cream)}
+.typeline .ghost{visibility:hidden}
+.typeline .live{position:absolute;left:0;top:0;width:100%;white-space:nowrap}
+.caret{display:inline-block;width:.045em;height:.74em;margin-left:.05em;background:var(--rose);vertical-align:-.02em;animation:blink 1s step-end infinite}
+.tail{display:block;margin-top:clamp(8px,1.4vw,18px);font-family:var(--serif);font-style:italic;font-size:clamp(20px,1.4vw + 14px,40px);line-height:1.2;color:var(--cream-80)}
+.hero-cta{display:flex;flex-direction:column;align-items:center;gap:clamp(14px,1.6vw,20px);margin:clamp(28px,3.6vw,46px) auto 0;max-width:min(94vw,620px)}
+.rule{width:44px;height:1px;background:linear-gradient(90deg,transparent,rgba(223,176,90,.75),transparent)}
+.hero-cta p{margin:0;font-size:clamp(14.5px,.5vw + 12px,17px);line-height:1.68;color:var(--cream-80)}
+.hero-cta strong{color:var(--cream)}
+.hero-art{position:relative;width:100%;margin-top:clamp(32px,4.4vw,56px);max-width:1120px}
+.hero-art .glow{position:absolute;inset:-26px -26px 40px;border-radius:34px;background:linear-gradient(180deg,rgba(58,16,24,.9),rgba(36,10,16,0));z-index:0}
+.hero-art .frame{position:relative;z-index:1;border-radius:24px;overflow:hidden;border:1px solid var(--line);background:var(--ink-3);box-shadow:0 30px 70px -30px rgba(0,0,0,.6)}
+.ratio{position:relative;aspect-ratio:16/9}
+.ratio>svg{position:absolute;inset:0;width:100%;height:100%}
+
+/* ---------- marquee ---------- */
+.marq{margin-top:clamp(38px,4.6vw,64px);padding:clamp(15px,1.8vw,22px) 0;border-top:1px solid rgba(247,234,230,.12);border-bottom:1px solid rgba(247,234,230,.12);overflow:hidden}
+.marq-track{display:flex;width:max-content;animation:drift 34s linear infinite;font-family:var(--serif);font-size:21px;color:var(--cream-72)}
+.marq-set{display:flex;gap:40px;padding-right:40px;align-items:center;white-space:nowrap}
+.marq-set i{color:var(--gold);font-style:normal}
+
+/* ---------- grids ---------- */
+/* min() in the track keeps a single column from ever exceeding the viewport
+   on a 320px phone, which would otherwise force a horizontal scrollbar. */
+.grid{display:grid;gap:clamp(15px,1.8vw,24px);margin-top:clamp(28px,3.6vw,46px)}
+.g3{grid-template-columns:repeat(auto-fit,minmax(min(290px,100%),1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(min(232px,100%),1fr))}
+.g-stat{grid-template-columns:repeat(auto-fit,minmax(min(208px,100%),1fr));gap:clamp(12px,1.3vw,18px)}
+.feat{overflow:hidden;display:flex;flex-direction:column}
+.feat .art{height:clamp(168px,17vw,236px);position:relative}
+.feat .art>svg{position:absolute;inset:0;width:100%;height:100%}
+.feat .body{padding:22px 24px 26px}
+.feat h3,.step h3{font-family:var(--serif);font-size:clamp(22px,.9vw + 18px,27px);font-weight:600}
+.feat p,.step p{margin:9px 0 0;font-size:14.5px;line-height:1.62;color:var(--cream-72)}
+.step{padding:28px 26px 30px}
+.step .num{width:42px;height:42px;border-radius:50%;border:1px solid rgba(223,176,90,.5);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:20px;color:var(--gold)}
+.step h3{margin-top:16px}
+
+/* ---------- story ---------- */
+.split{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:clamp(28px,4vw,60px);align-items:center}
+.pull{margin:20px 0 0;font-family:var(--serif);font-size:clamp(19px,.9vw + 14px,27px);line-height:1.5;color:rgba(247,234,230,.92)}
+.who{display:flex;align-items:center;gap:14px;margin-top:26px}
+.avatar{width:52px;height:52px;border-radius:50%;flex:0 0 auto;display:flex;align-items:center;justify-content:center;background:linear-gradient(150deg,#5A1421,#2A0A11);border:1px solid rgba(223,176,90,.45);font-family:var(--serif);font-size:19px;font-weight:600;color:var(--gold)}
+.who b{display:block;font-size:15px;font-weight:700}
+.who small{display:block;font-size:13px;color:var(--cream-72)}
+.portrait{border-radius:22px;overflow:hidden;border:1px solid var(--line);aspect-ratio:4/5;position:relative;background:linear-gradient(160deg,#3A1018,#240A10)}
+.portrait>svg{position:absolute;inset:0;width:100%;height:100%}
+
+/* ---------- quotes ---------- */
+.quote{padding:28px 26px;margin:0;display:flex;flex-direction:column;gap:14px}
+.quote .mark{font-family:var(--serif);font-size:44px;line-height:.6;color:var(--rose)}
+.quote blockquote{margin:0;font-family:var(--serif);font-size:clamp(19px,.7vw + 15px,24px);line-height:1.45;color:rgba(247,234,230,.92)}
+.quote figcaption{margin-top:auto;font-size:13.5px;line-height:1.5;color:var(--cream-72)}
+.quote figcaption b{color:rgba(247,234,230,.95)}
+.note{margin:20px 0 0;font-size:12.5px;line-height:1.6;color:var(--cream-62);max-width:80ch}
+
+/* ---------- numbers ---------- */
+.stat{padding:24px 22px;display:flex;flex-direction:column;gap:6px}
+.stat .big{font-family:var(--serif);font-size:clamp(31px,2.2vw + 17px,46px);line-height:1;color:var(--rose)}
+.stat b{font-size:14.5px}
+.stat small{font-size:12px;color:var(--cream-62)}
+.stat-cta{background:linear-gradient(150deg,#7E1128,#3A0710);border-color:rgba(240,101,122,.4);color:#FFF0F2;gap:12px}
+.stat-cta span{font-family:var(--serif);font-size:25px;line-height:1.2}
+.stat-cta a{margin-top:auto;align-self:flex-start;padding:11px 20px;border-radius:999px;background:#FFF0F2;color:#8A0F26;font-size:13.5px;font-weight:700}
+.stat-cta a:hover{background:#fff;color:#6E0B1D}
+
+/* ---------- access ---------- */
+.access{max-width:var(--wrap);margin:clamp(58px,7vw,104px) auto 0;padding:0 var(--pad);scroll-margin-top:78px}
+.access-box{border-radius:28px;border:1px solid rgba(223,176,90,.34);background:linear-gradient(170deg,var(--ink),var(--ink-2));box-shadow:0 26px 60px -34px rgba(0,0,0,.6);padding:clamp(22px,4.6vw,64px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(310px,100%),1fr));gap:clamp(30px,4vw,60px);align-items:center}
+.count{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}
+.count div{min-width:74px;flex:1 1 74px;padding:13px 14px;border-radius:14px;background:var(--ink);border:1px solid var(--line);text-align:center}
+.count b{display:block;font-family:var(--serif);font-size:clamp(28px,2vw + 16px,34px);line-height:1;color:var(--rose);font-weight:400;font-variant-numeric:tabular-nums}
+.count small{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--cream-72);margin-top:6px}
+.panel{background:var(--ink);border:1px solid var(--line);border-radius:22px;padding:clamp(24px,2.4vw,30px);box-shadow:0 10px 30px -18px rgba(0,0,0,.6)}
+.panel h3{font-family:var(--serif);font-size:29px;font-weight:600}
+.panel .sub{margin:8px 0 0;font-size:14.5px;line-height:1.6;color:var(--cream-72)}
+form{display:flex;flex-direction:column;gap:13px;margin-top:20px}
+label{display:flex;flex-direction:column;gap:7px;font-size:13px;font-weight:600;letter-spacing:.02em;color:var(--cream-80)}
+label .opt{font-weight:500;color:rgba(247,234,230,.5)}
+input,select,textarea{
+  width:100%;padding:13px 15px;border-radius:11px;
+  border:1px solid rgba(247,234,230,.2);background:var(--ink);
+  font-family:var(--sans);font-size:15px;color:var(--cream);
+  outline:none;transition:border-color .16s ease,box-shadow .16s ease;
+}
+textarea{resize:vertical;line-height:1.5;min-height:64px}
+input::placeholder,textarea::placeholder{color:rgba(247,234,230,.38)}
+input:focus,select:focus,textarea:focus{border-color:var(--rose);box-shadow:0 0 0 3px rgba(240,101,122,.16)}
+select{appearance:none;-webkit-appearance:none;cursor:pointer;padding-right:40px;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23F0657A' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 15px center;background-size:12px}
+select option{background:var(--ink-2);color:var(--cream)}
+.err{font-size:13.5px;font-weight:600;color:var(--rose);background:#38121A;border:1px solid rgba(240,101,122,.24);padding:11px 14px;border-radius:10px}
+.fine{margin:0;font-size:12px;line-height:1.55;color:var(--cream-72)}
+.done{display:flex;flex-direction:column;gap:14px;animation:rise .45s ease both}
+.tick{width:52px;height:52px;border-radius:50%;background:#16200F;border:1px solid rgba(157,201,133,.35);display:flex;align-items:center;justify-content:center;font-size:24px;color:#9DC985}
+.done h3{font-size:29px}
+.done p{margin:0;font-size:15px;line-height:1.65;color:var(--cream-80);overflow-wrap:anywhere}
+.done strong{color:var(--cream)}
+.handle{margin-top:4px;padding:14px 16px;border-radius:12px;background:#2A1E08;border:1px solid rgba(223,176,90,.3);font-size:13.5px;line-height:1.6;color:var(--gold);word-break:break-all}
+.handle code{font-family:var(--mono)}
+.linkbtn{align-self:flex-start;padding:0;border:0;background:none;font-family:var(--sans);font-size:13.5px;font-weight:600;color:var(--rose);cursor:pointer;text-decoration:underline}
+.spin{width:15px;height:15px;border-radius:50%;border:2px solid rgba(255,246,247,.35);border-top-color:#FFF6F7;animation:sp .7s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+[hidden]{display:none !important}
+
+/* ---------- footer ---------- */
+.ftr{margin-top:clamp(58px,7vw,104px);padding:clamp(38px,4.6vw,56px) var(--pad) 42px;border-top:1px solid rgba(247,234,230,.12)}
+.ftr-in{max-width:var(--wrap);margin:0 auto;display:flex;flex-wrap:wrap;gap:28px;justify-content:space-between;align-items:flex-start}
+.ftr-in p{margin:0;font-size:14px;line-height:1.6;color:var(--cream-80);max-width:34ch}
+.cols{display:flex;gap:clamp(30px,5vw,56px);flex-wrap:wrap;font-size:14px}
+.col{display:flex;flex-direction:column;gap:9px}
+.col span{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--cream-72)}
+.col a{color:var(--rose)}
+.legal{max-width:var(--wrap);margin:34px auto 0;padding-top:20px;border-top:1px solid rgba(247,234,230,.12);display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;font-size:12.5px;color:var(--cream-72)}
+
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .marq-track{animation:none}
+  .ring i{animation:none;display:none}
+  .caret{animation:none}
+  *{transition-duration:.01ms !important}
+}
+</style>
+</head>
+<body>
+
+<!-- Shared SVG gradients, referenced by every illustration on the page. -->
+<svg width="0" height="0" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="thread" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#C8213D"/><stop offset=".5" stop-color="#F0657A"/><stop offset="1" stop-color="#DFB05A"/>
+    </linearGradient>
+    <radialGradient id="knot" cx=".34" cy=".3">
+      <stop offset="0" stop-color="#F0D9A4"/><stop offset=".62" stop-color="#DFB05A"/><stop offset="1" stop-color="#C8213D"/>
+    </radialGradient>
+  </defs>
+</svg>
+
+<header class="hdr">
+  <div class="hdr-in">
+    <a class="brand" href="#top" aria-label="Bandhan.ai home">
+      <span class="dot" aria-hidden="true"></span>
+      <span>Bandhan<span style="color:var(--rose)">.ai</span></span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a class="lnk" href="#ar">The AR rakhi</a>
+      <a class="lnk" href="#story">Our story</a>
+      <a class="lnk" href="#how">How it works</a>
+      <a class="btn" href="#access">Get first access</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="pill">
+    <span class="ring" aria-hidden="true"><i></i><b></b></span>
+    World's first AI Rakhi &middot; Raksha Bandhan, 28 August
+  </div>
+
+  <h1 class="hero-h">
+    <span class="kicker">This Raksha Bandhan</span>
+    <span class="stat-line">
+      <b id="statCount">13.9 lakh</b>
+      <em id="statNote">on shift</em>
+    </span>
+    <span class="typeline">
+      <span class="ghost" aria-hidden="true">SHOPKEEPERS</span>
+      <span class="live"><span id="typed">DOCTORS</span><span class="caret" aria-hidden="true"></span></span>
+    </span>
+    <span class="tail">won't get their rakhi.</span>
+  </h1>
+
+  <div class="hero-cta">
+    <div class="rule" aria-hidden="true"></div>
+    <p>Nearly <strong>11 crore Indians</strong> spend Raksha Bandhan away from the people who would have tied it. Bandhan.ai is the world's first AI rakhi &mdash; your voice, your family's blessing, one link, anywhere on earth.</p>
+    <a class="btn btn-lg" href="#access">Get first access <span aria-hidden="true">&rarr;</span></a>
+  </div>
+
+  <div class="hero-art">
+    <div class="glow" aria-hidden="true"></div>
+    <div class="frame">
+      <div class="ratio">
+        <svg viewBox="0 0 1200 675" role="img" aria-label="Illustration: a phone camera showing an AR rakhi tied on a wrist">
+          <defs>
+            <linearGradient id="hg" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#3B141D"/><stop offset="1" stop-color="#240A10"/>
+            </linearGradient>
+            <radialGradient id="halo" cx=".5" cy=".5">
+              <stop offset="0" stop-color="#F0657A" stop-opacity=".35"/><stop offset="1" stop-color="#F0657A" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <rect width="1200" height="675" fill="url(#hg)"/>
+          <g opacity=".5" fill="#DFB05A">
+            <circle cx="150" cy="120" r="2"/><circle cx="1040" cy="96" r="2.4"/><circle cx="300" cy="560" r="1.8"/>
+            <circle cx="920" cy="600" r="2"/><circle cx="620" cy="70" r="1.6"/><circle cx="80" cy="420" r="1.6"/>
+          </g>
+          <ellipse cx="600" cy="360" rx="300" ry="230" fill="url(#halo)"/>
+
+          <!-- phone -->
+          <g transform="translate(415 120)">
+            <rect x="0" y="0" width="370" height="470" rx="40" fill="#180509" stroke="rgba(247,234,230,.22)" stroke-width="2"/>
+            <rect x="12" y="12" width="346" height="446" rx="30" fill="#2C0E15"/>
+            <rect x="150" y="24" width="70" height="9" rx="4.5" fill="rgba(247,234,230,.22)"/>
+            <!-- forearm -->
+            <path d="M56 372 C120 300 210 250 322 214 L344 300 C240 336 160 384 108 446 Z" fill="#4A2018" opacity=".95"/>
+            <path d="M56 372 C120 300 210 250 322 214" fill="none" stroke="rgba(247,234,230,.12)" stroke-width="3"/>
+            <!-- rakhi thread around wrist -->
+            <path d="M150 353 C176 300 236 268 296 254" fill="none" stroke="url(#thread)" stroke-width="15" stroke-linecap="round"/>
+            <path d="M168 391 C196 340 254 306 314 292" fill="none" stroke="url(#thread)" stroke-width="15" stroke-linecap="round" opacity=".78"/>
+            <circle cx="232" cy="304" r="34" fill="url(#knot)"/>
+            <circle cx="232" cy="304" r="34" fill="none" stroke="#7E1128" stroke-width="2" opacity=".55"/>
+            <circle cx="232" cy="304" r="12" fill="#C8213D"/>
+            <g stroke="#F0D9A4" stroke-width="2.4" opacity=".85">
+              <path d="M232 258v-14M232 364v14M178 304h-14M286 304h14M194 266l-10-10M270 342l10 10M270 266l10-10M194 342l-10 10"/>
+            </g>
+            <!-- AR reticle -->
+            <g stroke="#DFB05A" stroke-width="3" fill="none" opacity=".9" stroke-linecap="round">
+              <path d="M150 224h-28v28M314 224h28v28M150 384h-28v-28M314 384h28v-28"/>
+            </g>
+            <text x="185" y="424" font-family="ui-monospace,Menlo,monospace" font-size="15" letter-spacing="2.5" fill="#DFB05A">WRIST LOCKED</text>
+          </g>
+
+          <!-- left caption -->
+          <g transform="translate(96 250)" font-family="Karla,system-ui,sans-serif">
+            <rect x="-16" y="-30" width="250" height="118" rx="16" fill="rgba(36,10,16,.72)" stroke="rgba(247,234,230,.16)"/>
+            <text x="0" y="-2" font-size="13" letter-spacing="2.6" fill="#DFB05A">TORONTO</text>
+            <text x="0" y="30" font-size="24" font-family="'Cormorant Garamond',Georgia,serif" fill="#F7EAE6">Aarti recorded</text>
+            <text x="0" y="58" font-size="14" fill="rgba(247,234,230,.72)">in Amma's own voice</text>
+          </g>
+          <!-- right caption -->
+          <g transform="translate(830 380)" font-family="Karla,system-ui,sans-serif">
+            <rect x="-16" y="-30" width="272" height="118" rx="16" fill="rgba(36,10,16,.72)" stroke="rgba(247,234,230,.16)"/>
+            <text x="0" y="-2" font-size="13" letter-spacing="2.6" fill="#DFB05A">KANPUR</text>
+            <text x="0" y="30" font-size="24" font-family="'Cormorant Garamond',Georgia,serif" fill="#F7EAE6">Tied at 9:14 am</text>
+            <text x="0" y="58" font-size="14" fill="rgba(247,234,230,.72)">saved to his keepsake room</text>
+          </g>
+          <path d="M300 300 C360 320 372 330 415 342" fill="none" stroke="rgba(223,176,90,.5)" stroke-width="2" stroke-dasharray="6 8"/>
+          <path d="M785 400 C812 402 806 404 830 406" fill="none" stroke="rgba(223,176,90,.5)" stroke-width="2" stroke-dasharray="6 8"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MARQUEE ============ -->
+<section class="marq" aria-hidden="true">
+  <div class="marq-track">
+    <div class="marq-set">
+      <span>Toronto &rarr; Kanpur</span><i>&#10022;</i><span>Siachen &rarr; Jaipur</span><i>&#10022;</i><span>Bengaluru ICU &rarr; Patna</span><i>&#10022;</i><span>Dubai &rarr; Kochi</span><i>&#10022;</i><span>Berlin hostel &rarr; Nagpur</span><i>&#10022;</i><span>Night shift &rarr; home</span><i>&#10022;</i>
+    </div>
+    <div class="marq-set">
+      <span>Toronto &rarr; Kanpur</span><i>&#10022;</i><span>Siachen &rarr; Jaipur</span><i>&#10022;</i><span>Bengaluru ICU &rarr; Patna</span><i>&#10022;</i><span>Dubai &rarr; Kochi</span><i>&#10022;</i><span>Berlin hostel &rarr; Nagpur</span><i>&#10022;</i><span>Night shift &rarr; home</span><i>&#10022;</i>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AR ============ -->
+<section id="ar" class="sec wrap">
+  <div class="eyebrow">01 &mdash; The AR rakhi</div>
+  <h2 class="h2" style="max-width:20ch">You don't send a picture of a rakhi. You tie one.</h2>
+  <p class="lede">Point the camera at your brother's wrist &mdash; wherever he is standing, in a hospital corridor or a bunker or a Berlin kitchen &mdash; and the thread wraps around it in real space. He sees it on his arm. You hear the moment land. Then it stays in his gallery, in 3D, for as long as he keeps it.</p>
+
+  <div class="grid g3">
+    <article class="card feat">
+      <div class="art">
+        <svg viewBox="0 0 400 240" role="img" aria-label="A rakhi thread wrapping around a wrist in augmented reality">
+          <defs><linearGradient id="a1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3A1018"/><stop offset="1" stop-color="#2A0A11"/></linearGradient></defs>
+          <rect width="400" height="240" fill="url(#a1)"/>
+          <path d="M40 208 C110 150 190 116 300 92 L318 148 C220 172 150 204 104 240 L40 240Z" fill="#4A2018"/>
+          <path d="M112 176 C140 132 186 108 240 96" fill="none" stroke="url(#thread)" stroke-width="13" stroke-linecap="round"/>
+          <path d="M128 210 C158 166 204 142 258 130" fill="none" stroke="url(#thread)" stroke-width="13" stroke-linecap="round" opacity=".75"/>
+          <circle cx="188" cy="140" r="27" fill="url(#knot)"/><circle cx="188" cy="140" r="10" fill="#C8213D"/>
+          <g stroke="#DFB05A" stroke-width="2.6" fill="none" stroke-linecap="round" opacity=".9">
+            <path d="M110 78H86v24M280 78h24v24M110 208H86v-24M280 208h24v-24"/>
+          </g>
+        </svg>
+      </div>
+      <div class="body">
+        <h3>Tied in AR, on the real wrist</h3>
+        <p>Camera on, wrist detected, thread wraps and knots. Works on any phone browser &mdash; no headset, no app.</p>
+      </div>
+    </article>
+
+    <article class="card feat">
+      <div class="art">
+        <svg viewBox="0 0 400 240" role="img" aria-label="A voice waveform beside a lit diya">
+          <defs><linearGradient id="a2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#33230F"/><stop offset="1" stop-color="#241809"/></linearGradient></defs>
+          <rect width="400" height="240" fill="url(#a2)"/>
+          <g stroke="#F0657A" stroke-width="7" stroke-linecap="round">
+            <path d="M56 120v18M84 100v58M112 76v106M140 58v142M168 84v92M196 64v126M224 92v72M252 70v116M280 104v50M308 86v82M336 116v26"/>
+          </g>
+          <ellipse cx="200" cy="206" rx="86" ry="17" fill="#8A4A16"/>
+          <path d="M114 206 C130 178 270 178 286 206Z" fill="#B4661F"/>
+          <path d="M200 176 C214 158 210 142 200 130 C190 142 186 158 200 176Z" fill="#F0D9A4"/>
+          <path d="M200 172 C208 160 206 150 200 142 C194 150 192 160 200 172Z" fill="#F0657A"/>
+        </svg>
+      </div>
+      <div class="body">
+        <h3>Your voice, not a caption</h3>
+        <p>The aarti plays in your mother's actual voice. Everyone in the family adds a line and it arrives as one thread.</p>
+      </div>
+    </article>
+
+    <article class="card feat">
+      <div class="art">
+        <svg viewBox="0 0 400 240" role="img" aria-label="A private VR room holding saved rakhis year after year">
+          <defs><linearGradient id="a3" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#111A24"/><stop offset="1" stop-color="#0C1420"/></linearGradient></defs>
+          <rect width="400" height="240" fill="url(#a3)"/>
+          <g stroke="rgba(223,176,90,.28)" stroke-width="1.4" fill="none">
+            <path d="M0 200h400M0 168h400M60 240V150M340 240V150M140 240V158M260 240V158"/>
+          </g>
+          <g>
+            <rect x="66" y="66" width="82" height="82" rx="10" fill="#1B2836" stroke="rgba(223,176,90,.45)"/>
+            <circle cx="107" cy="107" r="21" fill="url(#knot)"/><circle cx="107" cy="107" r="8" fill="#C8213D"/>
+            <rect x="158" y="50" width="92" height="92" rx="10" fill="#22323F" stroke="rgba(240,101,122,.55)"/>
+            <circle cx="204" cy="96" r="25" fill="url(#knot)"/><circle cx="204" cy="96" r="9" fill="#C8213D"/>
+            <rect x="260" y="66" width="82" height="82" rx="10" fill="#1B2836" stroke="rgba(223,176,90,.45)"/>
+            <circle cx="301" cy="107" r="21" fill="url(#knot)"/><circle cx="301" cy="107" r="8" fill="#C8213D"/>
+          </g>
+          <g font-family="ui-monospace,Menlo,monospace" font-size="12" fill="rgba(223,176,90,.85)" text-anchor="middle">
+            <text x="107" y="172">2024</text><text x="204" y="172">2025</text><text x="301" y="172">2026</text>
+          </g>
+        </svg>
+      </div>
+      <div class="body">
+        <h3>Kept in VR, not deleted</h3>
+        <p>Every rakhi you receive stays in a private room you can walk back into next year, and the year after.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ HOW ============ -->
+<section id="how" class="sec wrap">
+  <div class="eyebrow">02 &mdash; How to use it</div>
+  <h2 class="h2" style="max-width:22ch">Four steps. About three minutes.</h2>
+  <div class="grid g4">
+    <div class="card step"><div class="num">1</div><h3>Open the link</h3><p>No download, no account. It opens in the browser you already have.</p></div>
+    <div class="card step"><div class="num">2</div><h3>Pick your rakhi</h3><p>Choose a thread and record a voice message in your own language.</p></div>
+    <div class="card step"><div class="num">3</div><h3>Add the family</h3><p>Invite parents, partner and cousins. Each one adds their blessing to the same thread.</p></div>
+    <div class="card step"><div class="num">4</div><h3>Send and tie</h3><p>They raise the camera, the rakhi lands on their wrist, and it is saved forever.</p></div>
+  </div>
+</section>
+
+<!-- ============ STORY ============ -->
+<section id="story" class="band">
+  <div class="wrap split">
+    <div>
+      <div class="eyebrow">03 &mdash; Why this exists</div>
+      <h2 class="h2" style="max-width:18ch">Last year I missed my sister's rakhi.</h2>
+      <p class="pull">I was in another state, building the business. The work did not stop for the festival. My sister kept the rakhi on the table the whole day and we spoke for four minutes on a call at night.</p>
+      <p class="lede" style="max-width:52ch">That is the whole reason this exists. Not a product idea &mdash; a day I did not get back. This year I want every sibling, every soldier at a post, every parent whose child moved abroad, to be able to tie a real rakhi in AR and actually feel it happen.</p>
+      <div class="who">
+        <div class="avatar" aria-hidden="true">CK</div>
+        <div><b>Charan Sai Kondilla</b><small>Founder, Bandhan.ai</small></div>
+      </div>
+    </div>
+    <div class="portrait">
+      <svg viewBox="0 0 400 500" role="img" aria-label="A rakhi resting on a table beside a phone showing a video call">
+        <defs>
+          <linearGradient id="p1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3A1018"/><stop offset="1" stop-color="#240A10"/></linearGradient>
+          <radialGradient id="lamp" cx=".5" cy=".2"><stop offset="0" stop-color="#DFB05A" stop-opacity=".3"/><stop offset="1" stop-color="#DFB05A" stop-opacity="0"/></radialGradient>
+        </defs>
+        <rect width="400" height="500" fill="url(#p1)"/>
+        <rect width="400" height="500" fill="url(#lamp)"/>
+        <rect x="0" y="330" width="400" height="170" fill="#2A0A11"/>
+        <path d="M0 330h400" stroke="rgba(223,176,90,.3)" stroke-width="2"/>
+        <!-- phone on table -->
+        <g transform="rotate(-8 250 400)">
+          <rect x="212" y="286" width="132" height="176" rx="16" fill="#180509" stroke="rgba(247,234,230,.2)" stroke-width="2"/>
+          <rect x="221" y="295" width="114" height="158" rx="10" fill="#3C1420"/>
+          <circle cx="278" cy="346" r="24" fill="#5A1421" stroke="rgba(223,176,90,.5)"/>
+          <circle cx="278" cy="338" r="9" fill="rgba(240,217,164,.85)"/>
+          <path d="M262 362c4-9 28-9 32 0z" fill="rgba(240,217,164,.85)"/>
+          <rect x="234" y="392" width="88" height="7" rx="3.5" fill="rgba(247,234,230,.28)"/>
+          <rect x="246" y="408" width="64" height="7" rx="3.5" fill="rgba(247,234,230,.18)"/>
+          <circle cx="278" cy="437" r="11" fill="#C8213D"/>
+        </g>
+        <!-- rakhi on the table, untied -->
+        <path d="M40 402 C74 376 110 376 150 396" fill="none" stroke="url(#thread)" stroke-width="11" stroke-linecap="round"/>
+        <path d="M40 424 C78 404 116 404 156 420" fill="none" stroke="url(#thread)" stroke-width="11" stroke-linecap="round" opacity=".8"/>
+        <circle cx="98" cy="384" r="30" fill="url(#knot)"/>
+        <circle cx="98" cy="384" r="11" fill="#C8213D"/>
+        <g stroke="#F0D9A4" stroke-width="2.4" opacity=".8">
+          <path d="M98 336v-12M98 432v12M50 384H38M146 384h12M64 350l-9-9M132 418l9 9M132 350l9-9M64 418l-9 9"/>
+        </g>
+        <g font-family="'Cormorant Garamond',Georgia,serif" fill="rgba(247,234,230,.62)" font-size="21" font-style="italic">
+          <text x="40" y="126">It stayed on the table</text>
+          <text x="40" y="156">the whole day.</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VOICES ============ -->
+<section id="voices" class="sec wrap">
+  <div class="eyebrow">04 &mdash; What people told us</div>
+  <h2 class="h2" style="max-width:24ch">Rakhi is not a holiday on most calendars.</h2>
+  <p class="lede" style="max-width:60ch">We spoke to people across hospitals, postings, campuses and offices while building this. The same sentence kept coming back: the day arrives, and the work does not move.</p>
+  <div class="grid g3">
+    <figure class="card quote">
+      <div class="mark" aria-hidden="true">&ldquo;</div>
+      <blockquote>Rakhi is not on our holiday calendar. It is a working Friday for a global team, so most of our people just message their sister and open the laptop.</blockquote>
+      <figcaption><b>HR lead, multinational IT services firm</b><br>Hyderabad &middot; spoken to in August</figcaption>
+    </figure>
+    <figure class="card quote">
+      <div class="mark" aria-hidden="true">&ldquo;</div>
+      <blockquote>My sister posts the rakhi three weeks early and it still reaches after the day. I have not tied one on time in six years.</blockquote>
+      <figcaption><b>Serving soldier, northern command</b><br>Name withheld</figcaption>
+    </figure>
+    <figure class="card quote">
+      <div class="mark" aria-hidden="true">&ldquo;</div>
+      <blockquote>I was on a night shift last Raksha Bandhan. My brother waited up until 2am on video call so I could see him hold it.</blockquote>
+      <figcaption><b>Resident doctor, government hospital</b><br>Bengaluru</figcaption>
+    </figure>
+  </div>
+  <p class="note">Quotes are from conversations during development, shared with permission. Names and employers withheld at their request.</p>
+</section>
+
+<!-- ============ NUMBERS ============ -->
+<section id="people" class="band">
+  <div class="wrap">
+    <div class="eyebrow">05 &mdash; The scale of it</div>
+    <h2 class="h2" style="max-width:22ch">How many people this is, in numbers.</h2>
+    <div class="grid g-stat">
+      <div class="card stat"><span class="big">13.9 lakh</span><b>Doctors</b><small>NMC / MoHFW, 2024</small></div>
+      <div class="card stat"><span class="big">~12 lakh</span><b>Indian Army</b><small>Ministry of Defence estimates</small></div>
+      <div class="card stat"><span class="big">54.3 lakh</span><b>IT professionals</b><small>NASSCOM, FY2024</small></div>
+      <div class="card stat"><span class="big">3.54 crore</span><b>NRIs &amp; PIOs</b><small>Ministry of External Affairs, 2024</small></div>
+      <div class="card stat"><span class="big">13.3 lakh</span><b>Students abroad</b><small>MEA, tabled in Parliament 2024</small></div>
+      <div class="card stat"><span class="big">6.5 crore</span><b>Business owners</b><small>Udyam data, MSME Ministry</small></div>
+      <div class="card stat"><span class="big">1.6 lakh</span><b>Founders</b><small>DPIIT, Startup India</small></div>
+      <div class="card stat stat-cta"><span>One rakhi for all of them.</span><a href="#access">Get first access &rarr;</a></div>
+    </div>
+    <p class="note">Latest publicly reported totals from the sources named. Groups overlap; they are not meant to be summed.</p>
+  </div>
+</section>
+
+<!-- ============ ACCESS ============ -->
+<section id="access" class="access">
+  <div class="access-box">
+    <div>
+      <div class="eyebrow">06 &mdash; First access</div>
+      <h2 class="h2">Doors open on 24&nbsp;August.</h2>
+      <p class="lede" style="max-width:44ch;font-size:16.5px">Join the first-access list and your private link arrives on the morning of 24 August &mdash; four days before Raksha Bandhan, ahead of the public launch, free for the first 10,000 families.</p>
+      <div class="count" id="countdown" aria-label="Countdown to first access">
+        <div><b id="cdD">00</b><small>Days</small></div>
+        <div><b id="cdH">00</b><small>Hours</small></div>
+        <div><b id="cdM">00</b><small>Minutes</small></div>
+        <div><b id="cdS">00</b><small>Seconds</small></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <!-- success -->
+      <div class="done" id="doneBox" hidden>
+        <div class="tick" aria-hidden="true">&#10003;</div>
+        <h3>You're on the list.</h3>
+        <p>We'll send your first-access link to <strong id="doneEmail">you@email.com</strong> on the morning of 24 August. Nothing else, ever.</p>
+        <div class="handle">Your reserved handle: <code id="doneHandle">bandhan.ai/rakhi-2026</code></div>
+        <button type="button" class="linkbtn" id="againBtn">Add another person</button>
+      </div>
+
+      <!-- form -->
+      <div id="formBox">
+        <h3>Reserve your rakhi</h3>
+        <p class="sub">Takes under a minute. We use your details once, to send your link.</p>
+        <form id="waitlist" novalidate>
+          <label>Your name
+            <input id="f-name" name="name" type="text" autocomplete="name" placeholder="Ananya Sharma" required>
+          </label>
+          <label>Email
+            <input id="f-email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="you@email.com" required>
+          </label>
+          <label>Phone number
+            <input id="f-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+91 98765 43210" required>
+          </label>
+          <label>Sending it to
+            <select id="f-segment" name="segment">
+              <option>Sibling in India</option>
+              <option>Sibling abroad</option>
+              <option value="Parents">Mother or father</option>
+              <option>Partner</option>
+              <option value="Serving in the forces">Someone serving in the forces</option>
+              <option value="Chosen family">Chosen family or friend</option>
+            </select>
+          </label>
+          <label><span>Message to your family <span class="opt">optional</span></span>
+            <textarea id="f-message" name="message" rows="3" placeholder="What you would say if you were standing there."></textarea>
+          </label>
+          <label><span>Feedback or suggestion <span class="opt">optional</span></span>
+            <textarea id="f-feedback" name="feedback" rows="2" placeholder="Anything you want the AR rakhi to do."></textarea>
+          </label>
+          <div class="err" id="errBox" role="alert" hidden></div>
+          <button class="btn" type="submit" id="submitBtn" style="margin-top:4px;padding:16px 24px;font-size:15.5px">
+            <span id="btnLabel">Send me the first-access link</span>
+          </button>
+          <p class="fine">By joining you agree to one email on 24 August. No spam, no resale of data.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="ftr">
+  <div class="ftr-in">
+    <div style="max-width:34ch;display:flex;flex-direction:column;gap:10px">
+      <div class="brand"><span class="dot" style="width:28px;height:28px" aria-hidden="true"></span><span style="font-size:20px">Bandhan<span style="color:var(--rose)">.ai</span></span></div>
+      <p>The world's first AI rakhi. Made in India, for everyone who couldn't be there in person.</p>
+    </div>
+    <div class="cols">
+      <div class="col">
+        <span>Product</span>
+        <a href="#ar">The AR rakhi</a><a href="#how">How it works</a><a href="#access">First access</a>
+      </div>
+      <div class="col">
+        <span>Company</span>
+        <a href="#story">Why we built it</a><a href="#access">Press &amp; partnerships</a><a href="#access">Contact</a>
+      </div>
+    </div>
+  </div>
+  <div class="legal">
+    <span>&copy; 2026 Bandhan.ai &middot; Raksha Bandhan, 28 August 2026</span>
+    <span>Privacy &middot; Terms</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ------------------------------------------------------------------
+   * CONFIG — the Google Apps Script /exec endpoint
+   * ---------------------------------------------------------------- */
+  var ENDPOINT = "https://script.google.com/macros/s/AKfycbyRTPdD8jOUiph-wzGks1jj9IRVkv81Bnimb2uBklHJphpCx_1rgZsHyAlixuM57cgeYQ/exec";
+  var LAUNCH = "2026-08-24T06:00:00+05:30";
+
+  var $ = function (id) { return document.getElementById(id); };
+
+  /* ------------------------------------------------------------------
+   * 1. Hero typewriter
+   * ---------------------------------------------------------------- */
+  var GROUPS = [
+    { word: "DOCTORS",     count: "13.9 lakh", note: "on shift" },
+    { word: "SOLDIERS",    count: "12 lakh",   note: "at their post" },
+    { word: "NRIs",        count: "3.54 crore",note: "a time zone away" },
+    { word: "STUDENTS",    count: "13.3 lakh", note: "in a hostel room abroad" },
+    { word: "SHOPKEEPERS", count: "6.5 crore", note: "with the shutter up" },
+    { word: "ENGINEERS",   count: "54.3 lakh", note: "in another city" },
+    { word: "FOUNDERS",    count: "1.6 lakh",  note: "shipping through the festival" }
+  ];
+
+  var elTyped = $("typed"), elCount = $("statCount"), elNote = $("statNote");
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (elTyped) {
+    if (reduce) {
+      var i = 0;
+      paint(0, GROUPS[0].word);
+      setInterval(function () { i = (i + 1) % GROUPS.length; paint(i, GROUPS[i].word); }, 3200);
+    } else {
+      var idx = 0, len = 0, phase = "type", timer;
+      var step = function () {
+        var g = GROUPS[idx % GROUPS.length], full = g.word, delay = 46;
+        if (phase === "type") {
+          if (len < full.length) { len++; }
+          else { phase = "hold"; delay = 1900; }
+        } else if (phase === "hold") { phase = "erase"; delay = 60; }
+        else if (len > 0) { len--; delay = 20; }
+        else { phase = "type"; idx++; delay = 260; }
+        paint(idx % GROUPS.length, GROUPS[idx % GROUPS.length].word.slice(0, len));
+        timer = setTimeout(step, delay);
+      };
+      step();
+      document.addEventListener("visibilitychange", function () {
+        if (document.hidden) { clearTimeout(timer); } else { clearTimeout(timer); timer = setTimeout(step, 300); }
+      });
+    }
+  }
+  function paint(groupIndex, text) {
+    var g = GROUPS[groupIndex];
+    elTyped.textContent = text;
+    if (elCount.textContent !== g.count) { elCount.textContent = g.count; elNote.textContent = g.note; }
+  }
+
+  /* ------------------------------------------------------------------
+   * 2. Countdown
+   * ---------------------------------------------------------------- */
+  var target = new Date(LAUNCH).getTime();
+  if (isNaN(target)) target = Date.UTC(2026, 7, 24, 0, 30, 0);
+  var cd = { d: $("cdD"), h: $("cdH"), m: $("cdM"), s: $("cdS") };
+  function pad(n) { return String(Math.max(0, n)).padStart(2, "0"); }
+  function tickClock() {
+    var diff = Math.max(0, target - Date.now()), s = Math.floor(diff / 1000);
+    cd.d.textContent = pad(Math.floor(s / 86400));
+    cd.h.textContent = pad(Math.floor((s % 86400) / 3600));
+    cd.m.textContent = pad(Math.floor((s % 3600) / 60));
+    cd.s.textContent = pad(s % 60);
+  }
+  tickClock();
+  setInterval(tickClock, 1000);
+
+  /* ------------------------------------------------------------------
+   * 3. Waitlist form → Google Sheets
+   * ---------------------------------------------------------------- */
+  var form = $("waitlist"), formBox = $("formBox"), doneBox = $("doneBox");
+  var errBox = $("errBox"), btn = $("submitBtn"), btnLabel = $("btnLabel");
+  var busy = false;
+
+  function showError(msg) {
+    errBox.textContent = msg;
+    errBox.hidden = false;
+  }
+  function clearError() { errBox.hidden = true; errBox.textContent = ""; }
+
+  function makeHandle(name, email) {
+    var base = String(name || String(email || "").split("@")[0] || "rakhi")
+      .toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+    return (base || "rakhi") + "-" + new Date().getFullYear();
+  }
+
+  function context() {
+    var p = new URLSearchParams(location.search);
+    var scr = "";
+    try { scr = window.screen.width + "x" + window.screen.height; } catch (e) {}
+    var tz = "";
+    try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ""; } catch (e) {}
+    return {
+      sourceUrl: location.href.slice(0, 400),
+      referrer: (document.referrer || "").slice(0, 400),
+      utmSource: p.get("utm_source") || "",
+      utmMedium: p.get("utm_medium") || "",
+      utmCampaign: p.get("utm_campaign") || "",
+      language: navigator.language || "",
+      clientTz: tz,
+      screen: scr,
+      userAgent: (navigator.userAgent || "").slice(0, 480)
+    };
+  }
+
+  /* POST as text/plain → a "simple" request, so the browser sends no
+     CORS preflight (Apps Script cannot answer an OPTIONS preflight).
+     Apps Script parses the JSON body itself. */
+  function postJson(payload) {
+    return fetch(ENDPOINT, {
+      method: "POST",
+      mode: "cors",
+      cache: "no-store",
+      redirect: "follow",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(payload)
+    }).then(function (r) { return r.text(); }).then(function (t) {
+      try { return JSON.parse(t); }
+      catch (e) { throw new Error("Unexpected response"); }
+    });
+  }
+
+  /* Fallback for locked-down networks / blocked CORS: JSONP via doGet. */
+  function jsonpSubmit(payload) {
+    return new Promise(function (resolve, reject) {
+      var cb = "bandhan_cb_" + Date.now() + "_" + Math.floor(Math.random() * 1e6);
+      var s = document.createElement("script");
+      var timer = setTimeout(function () { done(); reject(new Error("timeout")); }, 25000);
+      function done() {
+        clearTimeout(timer);
+        try { delete window[cb]; } catch (e) { window[cb] = undefined; }
+        if (s.parentNode) s.parentNode.removeChild(s);
+      }
+      window[cb] = function (data) { done(); resolve(data); };
+      var q = new URLSearchParams({ action: "submit", callback: cb });
+      Object.keys(payload).forEach(function (k) {
+        var v = payload[k];
+        if (v === undefined || v === null || v === "") return;
+        q.set(k, String(v).slice(0, 1200));   // keep the URL well under limits
+      });
+      s.src = ENDPOINT + "?" + q.toString();
+      s.onerror = function () { done(); reject(new Error("network")); };
+      document.head.appendChild(s);
+    });
+  }
+
+  function succeed(email, handle) {
+    $("doneEmail").textContent = email;
+    $("doneHandle").textContent = "bandhan.ai/" + handle;
+    formBox.hidden = true;
+    doneBox.hidden = false;
+    try { localStorage.setItem("bandhan_joined", JSON.stringify({ email: email, handle: handle })); } catch (e) {}
+    if (doneBox.scrollIntoView) doneBox.scrollIntoView({ block: "center", behavior: reduce ? "auto" : "smooth" });
+  }
+
+  form.addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    if (busy) return;
+    clearError();
+
+    var name = $("f-name").value.trim();
+    var email = $("f-email").value.trim();
+    var phone = $("f-phone").value.trim();
+
+    if (!name) { showError("Please add your name so we know who to greet."); $("f-name").focus(); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { showError("That email doesn't look right. Check it once?"); $("f-email").focus(); return; }
+    var digits = phone.replace(/\D/g, "");
+    if (digits.length < 10 || digits.length > 15) { showError("Please add a phone number we can reach you on."); $("f-phone").focus(); return; }
+
+    var handle = makeHandle(name, email);
+    var payload = Object.assign({
+      action: "submit",
+      name: name,
+      email: email,
+      phone: phone,
+      segment: $("f-segment").value,
+      message: $("f-message").value.trim(),
+      feedback: $("f-feedback").value.trim(),
+      handle: handle
+    }, context());
+
+    busy = true;
+    btn.disabled = true;
+    btnLabel.textContent = "Reserving your rakhi…";
+
+    postJson(payload)
+      .catch(function () { return jsonpSubmit(payload); })
+      .then(function (res) {
+        if (res && res.ok) {
+          succeed(email, res.handle || handle);
+        } else {
+          var msg = (res && res.error && res.error.message) || "We couldn't save your details. Please try again.";
+          showError(msg);
+        }
+      })
+      .catch(function () {
+        showError("We couldn't reach the server. Check your connection and try once more.");
+      })
+      .then(function () {
+        busy = false;
+        btn.disabled = false;
+        btnLabel.textContent = "Send me the first-access link";
+      });
+  });
+
+  $("againBtn").addEventListener("click", function () {
+    form.reset();
+    clearError();
+    doneBox.hidden = true;
+    formBox.hidden = false;
+    $("f-name").focus();
+  });
+
+  /* Returning visitor who already joined on this device. */
+  try {
+    var saved = JSON.parse(localStorage.getItem("bandhan_joined") || "null");
+    if (saved && saved.email) {
+      $("doneEmail").textContent = saved.email;
+      $("doneHandle").textContent = "bandhan.ai/" + (saved.handle || makeHandle("", saved.email));
+      formBox.hidden = true;
+      doneBox.hidden = false;
+    }
+  } catch (e) {}
+})();
+</script>
+</body>
+</html>
