@@ -16,7 +16,7 @@ https://script.google.com/macros/s/AKfycbyRTPdD8jOUiph-wzGks1jj9IRVkv81Bnimb2uBk
 Opening the `/exec` URL right now returns:
 
 ```json
-{"ok":true,"service":"bandhan-first-access","ready":false,"entries":0}
+{"ok":true,"service":"airakhi-first-access","ready":false,"entries":0}
 ```
 
 `"ready": false` means **the "First Access" tab does not exist yet**. Signups
@@ -35,7 +35,7 @@ dropdown are all created up front:
 ```
 
 Also rename the spreadsheet from *Untitled spreadsheet* to something like
-**Bandhan.ai — First Access** so it is findable in Drive.
+**AiRakhi — First Access** so it is findable in Drive.
 
 ---
 
@@ -47,7 +47,7 @@ Also rename the spreadsheet from *Untitled spreadsheet* to something like
    [`Code.gs`](./Code.gs). Save.
 4. Run **`setup`** once and authorise (see above).
 5. **Deploy → New deployment → type: Web app**
-   - *Description:* `Bandhan first access`
+   - *Description:* `AiRakhi first access`
    - *Execute as:* **Me**
    - *Who has access:* **Anyone**  ← must be *Anyone*, not "Anyone with a
      Google account", or the landing page gets an HTML login page instead of JSON.
@@ -79,7 +79,7 @@ new URL and you would have to update `index.html`.
 Open the `/exec` URL in a browser at any time:
 
 ```json
-{"ok":true,"service":"bandhan-first-access","version":"1.0.0","ready":true,"entries":42}
+{"ok":true,"service":"airakhi-first-access","version":"1.0.0","ready":true,"entries":42}
 ```
 
 ## Test a submission without the site

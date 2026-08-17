@@ -1,6 +1,6 @@
 /**
  * ============================================================================
- * Bandhan.ai — "First Access" waitlist backend
+ * AiRakhi — "First Access" waitlist backend
  * Google Apps Script  →  Google Sheets
  * ============================================================================
  *
@@ -152,11 +152,11 @@ function doPost(e) {
   }
 }
 
-/** Adds a "Bandhan.ai" menu inside the spreadsheet. */
+/** Adds an "AiRakhi" menu inside the spreadsheet. */
 function onOpen() {
   try {
     SpreadsheetApp.getUi()
-      .createMenu('Bandhan.ai')
+      .createMenu('AiRakhi')
       .addItem('Set up / repair sheet', 'setup')
       .addItem('Run self-test', 'runAllTests')
       .addSeparator()
@@ -168,7 +168,7 @@ function onOpen() {
 }
 
 /**
- * Run once from the editor, or from the Bandhan.ai menu. Creates the tab,
+ * Run once from the editor, or from the AiRakhi menu. Creates the tab,
  * writes and formats the headers, and confirms the script can write.
  */
 function setup() {
@@ -669,7 +669,7 @@ function errorPayload_(code, message, extra) {
 }
 
 function healthPayload_() {
-  var info = { ok: true, service: 'bandhan-first-access', version: '1.0.0', time: new Date().toISOString() };
+  var info = { ok: true, service: 'airakhi-first-access', version: '1.0.0', time: new Date().toISOString() };
   try {
     var ss = getSpreadsheet_();
     var sheet = ss.getSheetByName(CONFIG.SHEET_NAME);

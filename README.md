@@ -1,4 +1,4 @@
-# Bandhan.ai — first-access landing page
+# AiRakhi — first-access landing page
 
 The world's first AI rakhi. Static landing page + a Google Apps Script backend that
 writes every signup into a Google Sheet.
@@ -17,6 +17,7 @@ from the repo and the DNS records still point away from GitHub. See
 |---|---|
 | `index.html` | The whole site. One file — no build step, no framework, no npm. |
 | `404.html` | Styled not-found page for GitHub Pages. |
+| `assets/` | Logo mark, favicons and the social card, generated from `airakhi-logo.png`. |
 | `.github/workflows/deploy.yml` | Publishes the site to GitHub Pages on every push to `main`. |
 | `.nojekyll` | Tells GitHub Pages to serve files as-is (no Jekyll processing). |
 | `robots.txt`, `sitemap.xml` | Basic SEO. |

@@ -3,22 +3,29 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Bandhan.ai — The world's first AI rakhi</title>
-<meta name="description" content="Bandhan.ai is the world's first AI rakhi. Tie a real rakhi in AR on your brother's wrist from anywhere on earth, in your own voice. First access opens 24 August 2026.">
+<title>AiRakhi — The world's first AI rakhi</title>
+<meta name="description" content="AiRakhi is the world's first AI rakhi. Tie a real rakhi in AR on your brother's wrist from anywhere on earth, in your own voice. First access opens 24 August 2026.">
 <meta name="theme-color" content="#240A10">
 <meta name="color-scheme" content="dark">
 <link rel="canonical" href="https://www.airakhi.online/">
 
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="Bandhan.ai">
-<meta property="og:title" content="Bandhan.ai — The world's first AI rakhi">
+<meta property="og:site_name" content="AiRakhi">
+<meta property="og:title" content="AiRakhi — The world's first AI rakhi">
 <meta property="og:description" content="Tie a real rakhi in AR, in your own voice, from anywhere on earth. First access opens 24 August 2026.">
 <meta property="og:url" content="https://www.airakhi.online/">
+<meta property="og:image" content="https://www.airakhi.online/assets/og-cover.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="AiRakhi — a brother and sister tying a rakhi in AR">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Bandhan.ai — The world's first AI rakhi">
+<meta name="twitter:title" content="AiRakhi — The world's first AI rakhi">
 <meta name="twitter:description" content="Tie a real rakhi in AR, in your own voice, from anywhere on earth.">
+<meta name="twitter:image" content="https://www.airakhi.online/assets/og-cover.jpg">
 
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23240A10'/%3E%3Ccircle cx='32' cy='32' r='15' fill='%23DFB05A'/%3E%3Ccircle cx='27' cy='27' r='6' fill='%23F0D9A4'/%3E%3Ccircle cx='32' cy='32' r='5' fill='%23C8213D'/%3E%3C/svg%3E">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="64x64" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -87,7 +94,7 @@ p{text-wrap:pretty}
 .hdr-in{max-width:var(--wrap);margin:0 auto;padding:13px var(--pad);display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:nowrap}
 .brand{display:flex;align-items:center;gap:11px;color:var(--cream)}
 .brand:hover{color:var(--cream)}
-.dot{width:32px;height:32px;border-radius:50%;background:radial-gradient(circle at 32% 30%,var(--gold-soft),var(--gold) 62%,var(--rose));box-shadow:0 2px 10px rgba(240,101,122,.3);flex:0 0 auto}
+.logo{height:44px;width:auto;flex:0 0 auto;filter:drop-shadow(0 2px 10px rgba(240,101,122,.28))}
 .brand span{font-family:var(--serif);font-size:22px;font-weight:600;letter-spacing:.01em}
 .nav{display:flex;align-items:center;gap:28px;font-size:14px;font-weight:500}
 .nav a{color:var(--cream-72)}
@@ -95,7 +102,8 @@ p{text-wrap:pretty}
 .nav .btn{padding:10px 20px;font-size:14px;color:#FFF6F7}
 @media(max-width:820px){.nav .lnk{display:none}}
 @media(max-width:400px){
-  .brand span:last-child{font-size:19px}
+  .brand .name{font-size:19px}
+  .logo{height:38px}
   .nav .btn{padding:9px 15px;font-size:13px}
   .count div{padding:11px 8px;min-width:0;flex:1 1 0}
   .count small{font-size:8.5px;letter-spacing:.08em}
@@ -258,9 +266,9 @@ select option{background:var(--ink-2);color:var(--cream)}
 
 <header class="hdr">
   <div class="hdr-in">
-    <a class="brand" href="#top" aria-label="Bandhan.ai home">
-      <span class="dot" aria-hidden="true"></span>
-      <span>Bandhan<span style="color:var(--rose)">.ai</span></span>
+    <a class="brand" href="#top" aria-label="AiRakhi home">
+      <img class="logo" src="assets/logo-mark.png" alt="" width="320" height="212" fetchpriority="high" decoding="async">
+      <span class="name">Ai<span style="color:var(--rose)">Rakhi</span></span>
     </a>
     <nav class="nav" aria-label="Primary">
       <a class="lnk" href="#ar">The AR rakhi</a>
@@ -295,7 +303,7 @@ select option{background:var(--ink-2);color:var(--cream)}
 
   <div class="hero-cta">
     <div class="rule" aria-hidden="true"></div>
-    <p>Nearly <strong>11 crore Indians</strong> spend Raksha Bandhan away from the people who would have tied it. Bandhan.ai is the world's first AI rakhi &mdash; your voice, your family's blessing, one link, anywhere on earth.</p>
+    <p>Nearly <strong>11 crore Indians</strong> spend Raksha Bandhan away from the people who would have tied it. AiRakhi is the world's first AI rakhi &mdash; your voice, your family's blessing, one link, anywhere on earth.</p>
     <a class="btn btn-lg" href="#access">Get first access <span aria-hidden="true">&rarr;</span></a>
   </div>
 
@@ -475,7 +483,7 @@ select option{background:var(--ink-2);color:var(--cream)}
       <p class="lede" style="max-width:52ch">That is the whole reason this exists. Not a product idea &mdash; a day I did not get back. This year I want every sibling, every soldier at a post, every parent whose child moved abroad, to be able to tie a real rakhi in AR and actually feel it happen.</p>
       <div class="who">
         <div class="avatar" aria-hidden="true">CK</div>
-        <div><b>Charan Sai Kondilla</b><small>Founder, Bandhan.ai</small></div>
+        <div><b>Charan Sai Kondilla</b><small>Founder, AiRakhi</small></div>
       </div>
     </div>
     <div class="portrait">
@@ -581,7 +589,7 @@ select option{background:var(--ink-2);color:var(--cream)}
         <div class="tick" aria-hidden="true">&#10003;</div>
         <h3>You're on the list.</h3>
         <p>We'll send your first-access link to <strong id="doneEmail">you@email.com</strong> on the morning of 24 August. Nothing else, ever.</p>
-        <div class="handle">Your reserved handle: <code id="doneHandle">bandhan.ai/rakhi-2026</code></div>
+        <div class="handle">Your reserved handle: <code id="doneHandle">airakhi.online/rakhi-2026</code></div>
         <button type="button" class="linkbtn" id="againBtn">Add another person</button>
       </div>
 
@@ -631,7 +639,7 @@ select option{background:var(--ink-2);color:var(--cream)}
 <footer class="ftr">
   <div class="ftr-in">
     <div style="max-width:34ch;display:flex;flex-direction:column;gap:10px">
-      <div class="brand"><span class="dot" style="width:28px;height:28px" aria-hidden="true"></span><span style="font-size:20px">Bandhan<span style="color:var(--rose)">.ai</span></span></div>
+      <div class="brand"><img class="logo" src="assets/logo-mark.png" alt="" width="320" height="212" loading="lazy" decoding="async" style="height:32px"><span class="name" style="font-size:20px">Ai<span style="color:var(--rose)">Rakhi</span></span></div>
       <p>The world's first AI rakhi. Made in India, for everyone who couldn't be there in person.</p>
     </div>
     <div class="cols">
@@ -646,7 +654,7 @@ select option{background:var(--ink-2);color:var(--cream)}
     </div>
   </div>
   <div class="legal">
-    <span>&copy; 2026 Bandhan.ai &middot; Raksha Bandhan, 28 August 2026</span>
+    <span>&copy; 2026 AiRakhi &middot; Raksha Bandhan, 28 August 2026</span>
     <span>Privacy &middot; Terms</span>
   </div>
 </footer>
@@ -660,6 +668,7 @@ select option{background:var(--ink-2);color:var(--cream)}
    * ---------------------------------------------------------------- */
   var ENDPOINT = "https://script.google.com/macros/s/AKfycbyRTPdD8jOUiph-wzGks1jj9IRVkv81Bnimb2uBklHJphpCx_1rgZsHyAlixuM57cgeYQ/exec";
   var LAUNCH = "2026-08-24T06:00:00+05:30";
+  var JOINED_KEY = "airakhi_joined";
 
   var $ = function (id) { return document.getElementById(id); };
 
@@ -784,7 +793,7 @@ select option{background:var(--ink-2);color:var(--cream)}
   /* Fallback for locked-down networks / blocked CORS: JSONP via doGet. */
   function jsonpSubmit(payload) {
     return new Promise(function (resolve, reject) {
-      var cb = "bandhan_cb_" + Date.now() + "_" + Math.floor(Math.random() * 1e6);
+      var cb = "airakhi_cb_" + Date.now() + "_" + Math.floor(Math.random() * 1e6);
       var s = document.createElement("script");
       var timer = setTimeout(function () { done(); reject(new Error("timeout")); }, 25000);
       function done() {
@@ -807,10 +816,10 @@ select option{background:var(--ink-2);color:var(--cream)}
 
   function succeed(email, handle) {
     $("doneEmail").textContent = email;
-    $("doneHandle").textContent = "bandhan.ai/" + handle;
+    $("doneHandle").textContent = "airakhi.online/" + handle;
     formBox.hidden = true;
     doneBox.hidden = false;
-    try { localStorage.setItem("bandhan_joined", JSON.stringify({ email: email, handle: handle })); } catch (e) {}
+    try { localStorage.setItem(JOINED_KEY, JSON.stringify({ email: email, handle: handle })); } catch (e) {}
     if (doneBox.scrollIntoView) doneBox.scrollIntoView({ block: "center", behavior: reduce ? "auto" : "smooth" });
   }
 
@@ -872,12 +881,16 @@ select option{background:var(--ink-2);color:var(--cream)}
     $("f-name").focus();
   });
 
-  /* Returning visitor who already joined on this device. */
+  /* Returning visitor who already joined on this device. Falls back to the
+     pre-rename key so anyone who joined before still sees their confirmation
+     instead of an empty form. */
   try {
-    var saved = JSON.parse(localStorage.getItem("bandhan_joined") || "null");
+    var saved = JSON.parse(
+      localStorage.getItem(JOINED_KEY) || localStorage.getItem("bandhan_joined") || "null"
+    );
     if (saved && saved.email) {
       $("doneEmail").textContent = saved.email;
-      $("doneHandle").textContent = "bandhan.ai/" + (saved.handle || makeHandle("", saved.email));
+      $("doneHandle").textContent = "airakhi.online/" + (saved.handle || makeHandle("", saved.email));
       formBox.hidden = true;
       doneBox.hidden = false;
     }
