@@ -239,6 +239,9 @@ select option{background:var(--ink-2);color:var(--cream)}
 .col{display:flex;flex-direction:column;gap:9px}
 .col span{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--cream-72)}
 .col a{color:var(--rose)}
+.social{display:inline-flex;align-items:center;gap:8px}
+.social svg{flex:0 0 auto;opacity:.92}
+.social:hover svg{opacity:1}
 .legal{max-width:var(--wrap);margin:34px auto 0;padding-top:20px;border-top:1px solid rgba(247,234,230,.12);display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;font-size:12.5px;color:var(--cream-72)}
 
 @media(prefers-reduced-motion:reduce){
@@ -650,6 +653,17 @@ select option{background:var(--ink-2);color:var(--cream)}
       <div class="col">
         <span>Company</span>
         <a href="#story">Why we built it</a><a href="#access">Press &amp; partnerships</a><a href="#access">Contact</a>
+      </div>
+      <div class="col">
+        <span>Follow</span>
+        <a class="social" href="https://www.instagram.com/airakhi.online/" target="_blank" rel="noopener noreferrer" aria-label="AiRakhi on Instagram (opens in a new tab)">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true" focusable="false">
+            <rect x="2.6" y="2.6" width="18.8" height="18.8" rx="5.4"/>
+            <circle cx="12" cy="12" r="4.1"/>
+            <circle cx="17.5" cy="6.5" r="1.15" fill="currentColor" stroke="none"/>
+          </svg>
+          Instagram
+        </a>
       </div>
     </div>
   </div>

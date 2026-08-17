@@ -23,6 +23,10 @@
   "base_url": "https://pavankondilla.github.io/rakhiwebsielanding/",
   "og_image": "assets/og-cover.jpg",
 
+  "social": {
+    "instagram": "https://www.instagram.com/airakhi.online/"
+  },
+
   "logo": "airakhi-logo.png",
 
   "crop": "top:606",

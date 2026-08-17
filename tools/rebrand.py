@@ -595,6 +595,15 @@ def sync_urls(brand, dry_run, log):
         ("404.html",    r'(<a href=")(https?://[^"]*)(">)',                      base),
     ]
 
+    # Social profiles live in brand.json too, matched on the class rather than
+    # the old URL, so moving a handle is a one-line edit and never a find-and-
+    # replace through the markup.
+    for network, url in (brand.get("social") or {}).items():
+        if url:
+            rules.append(
+                ("index.html", rf'(<a class="social" href=")([^"]*)(" target)', url)
+            )
+
     changes: dict[str, list[tuple[str, str]]] = {}
     for rel, pattern, target in rules:
         path = ROOT / rel
@@ -684,6 +693,10 @@ def verify(brand, log) -> list[str]:
                 problems.append(f"index.html has no {label} tag")
             elif m.group(1) != want:
                 problems.append(f"{label} points at {m.group(1)} -- should be {want}")
+
+        for network, url in (brand.get("social") or {}).items():
+            if url and url not in text:
+                problems.append(f"index.html does not link to the {network} profile {url}")
 
     sm = ROOT / "sitemap.xml"
     if sm.exists():
