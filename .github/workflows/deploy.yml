@@ -22,9 +22,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # enablement flips the repo's Pages source to "GitHub Actions" using the
-      # workflow token, so the very first run wires itself up. Without it the
-      # repo stays on branch-deploy and this workflow would publish nothing.
+      # enablement only turns Pages *on* when it is off. It does NOT move an
+      # already-enabled site off branch-deploy -- we watched it no-op against
+      # this repo, which then ran both builders on the same push. The source
+      # was set to Actions once, by hand:
+      #   gh api -X PUT repos/OWNER/REPO/pages -f build_type=workflow
+      # It is a repo setting and it sticks; this step is here for a fresh fork.
       - uses: actions/configure-pages@v5
         with:
           enablement: true
