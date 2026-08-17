@@ -43,9 +43,9 @@ jobs:
           # being served as part of the site.
           rm -rf _site/.github _site/.claude _site/.gitattributes _site/.gitignore
           rm -rf _site/google-apps-script _site/DNS-GODADDY.md _site/README.md
-          # Brand source + its build script. assets/ is what actually ships;
+          # Brand source + the rebrand tooling. assets/ is what actually ships;
           # the 1.3MB master PNG has no reason to be downloadable.
-          rm -rf _site/tools _site/airakhi-logo.png
+          rm -rf _site/tools _site/airakhi-logo.png _site/rebrand.ps1
 
       - name: Sanity-check the artifact
         run: |

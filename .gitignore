@@ -12,3 +12,7 @@ Thumbs.db
 support.js
 image-slot.js
 uploads/
+
+# Rebrand preview renders (look at them, do not commit them)
+tools/preview/
+__pycache__/

@@ -17,7 +17,9 @@ from the repo and the DNS records still point away from GitHub. See
 |---|---|
 | `index.html` | The whole site. One file — no build step, no framework, no npm. |
 | `404.html` | Styled not-found page for GitHub Pages. |
-| `assets/` | Logo mark, favicons and the social card, generated from `airakhi-logo.png`. |
+| `assets/` | Logo mark, favicons and the social card. **Generated — never edit by hand.** |
+| `airakhi-logo.png` | The master logo. The only image you actually maintain. |
+| `rebrand.ps1`, `tools/` | The rebrand tool. Rebuilds `assets/` and syncs the name across the site. |
 | `.github/workflows/deploy.yml` | Publishes the site to GitHub Pages on every push to `main`. |
 | `.nojekyll` | Tells GitHub Pages to serve files as-is (no Jekyll processing). |
 | `robots.txt`, `sitemap.xml` | Basic SEO. |
@@ -49,6 +51,70 @@ Alongside name / email / phone / segment / message / feedback, the page sends
 page URL, referrer, UTM tags, device, browser, OS, language, timezone and screen
 size. Those land in their own columns.
 
+## Changing the logo or the company name
+
+Both are one command. `rebrand.ps1` rebuilds every image in `assets/` from the
+master logo **and** rewrites the name and domain everywhere they appear —
+`<title>`, the OG/Twitter cards, the two-tone header and footer wordmark, the
+canonical URL, `sitemap.xml`, `robots.txt`, the Apps Script backend and this
+README. It is idempotent: running it twice in a row changes nothing the second
+time, so run it whenever you are unsure.
+
+```powershell
+.\rebrand.ps1                     # rebuild from tools\brand.json
+.\rebrand.ps1 -DryRun             # show what would change, write nothing
+.\rebrand.ps1 -Check              # verify the current state, change nothing
+.\rebrand.ps1 -Preview -Open      # render the assets and look at them
+```
+
+### A new logo
+
+Drop the file in the repo root, then:
+
+```powershell
+.\rebrand.ps1 -Map -Open                          # ruler over the logo
+.\rebrand.ps1 -Logo new-logo.png -Crop none -Preview -Open
+```
+
+`-Crop` says which part of the file is the emblem, because a master file is
+usually a *lockup* — emblem on top, wordmark under it, tagline below that — and
+the site header wants the emblem alone:
+
+| `-Crop` | Use it when |
+|---|---|
+| `none` | The file is just a mark. **Start here for any new logo.** |
+| `auto` | The file already has transparency, or a clear gap under the emblem. |
+| `top:606` | A lockup. `-Map` writes a ruled copy of the logo — read the y value where the emblem ends. |
+| `box:x,y,w,h` | You want an exact rectangle. |
+
+The current logo is a lockup, which is why `brand.json` pins `top:606`.
+
+### A new name
+
+```powershell
+.\rebrand.ps1 -Name "AiRakhi" -Domain airakhi.online -WebHost www.airakhi.online -Save
+```
+
+`-Save` writes the values back to `tools\brand.json` so later runs keep them.
+The name is split at its last lowercase→uppercase seam (`AiRakhi` → `Ai` +
+`Rakhi`) and the second half is drawn in the rose accent, in the header, the
+footer and the social card.
+
+Two things it will **not** do on its own, both on purpose:
+
+- Phrases in `brand.json`'s `protect` list are frozen, so *Raksha Bandhan* the
+  festival never gets renamed along with the company.
+- `localStorage` keys like `airakhi_joined` are reported, not rewritten —
+  renaming one silently logs every returning visitor out.
+
+### Everything is a setting
+
+`tools/brand.json` is the source of truth: name, wordmark split, tagline,
+domain, logo path, crop, accent colours, old names to replace, phrases to
+protect, files to sync. `python tools/rebrand.py --help` lists every flag; the
+PowerShell wrapper only exists to find Python and install Pillow and numpy the
+first time.
+
 ## Changing the endpoint or the launch date
 
 Both live at the top of the `<script>` block near the bottom of `index.html`:
@@ -77,7 +143,9 @@ What the workflow does:
 1. Stages the site with `git archive`, so **only tracked files ship**. Anything
    in `.gitignore` (`uploads/`, `*.dc.html`, `support.js`, `image-slot.js`)
    can never leak into the published site.
-2. Drops repo plumbing (`.github/`, `.claude/`, `.gitattributes`) from the artifact.
+2. Drops repo plumbing (`.github/`, `.claude/`, `.gitattributes`) and the
+   rebrand tooling (`tools/`, `rebrand.ps1`, `airakhi-logo.png`) from the
+   artifact, so only the built `assets/` ship.
 3. Fails only if `index.html` is missing or empty. A missing `.nojekyll` is
    recreated instead of failing, and a missing `CNAME` is just a notice.
 4. Uploads and deploys via the official `actions/*-pages` actions.

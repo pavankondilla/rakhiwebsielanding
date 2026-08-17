@@ -1,0 +1,45 @@
+{
+  "$comment": [
+    "Single source of truth for the brand. Edit this, run `rebrand.ps1`, done.",
+    "Every field is also overridable on the command line -- see rebrand.py --help."
+  ],
+
+  "name": "AiRakhi",
+  "name_split": ["Ai", "Rakhi"],
+  "tagline": "The world's first AI rakhi",
+
+  "domain": "airakhi.online",
+  "host": "www.airakhi.online",
+
+  "logo": "airakhi-logo.png",
+
+  "crop": "top:606",
+
+  "name_aliases": ["AiRakhi", "Airakhi", "AIRakhi", "Bandhan.ai", "Bandhan.AI"],
+  "domain_aliases": ["airakhi.online", "www.airakhi.online", "bandhan.ai", "www.bandhan.ai"],
+
+  "protect": [
+    "Raksha Bandhan",
+    "raksha bandhan",
+    "World's first AI Rakhi",
+    "world's first AI rakhi"
+  ],
+
+  "colors": {
+    "ink": "#240A10",
+    "cream": "#F7EAE6",
+    "rose": "#F0657A",
+    "gold": "#DFB05A"
+  },
+
+  "sync_files": [
+    "index.html",
+    "404.html",
+    "README.md",
+    "sitemap.xml",
+    "robots.txt",
+    "DNS-GODADDY.md",
+    "google-apps-script/SETUP.md",
+    "google-apps-script/Code.gs"
+  ]
+}
