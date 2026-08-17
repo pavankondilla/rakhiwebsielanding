@@ -1,0 +1,78 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Let the deployment write to Pages, and read the repo.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deploy at a time. Never cancel a run that is mid-publish.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # enablement flips the repo's Pages source to "GitHub Actions" using the
+      # workflow token, so the very first run wires itself up. Without it the
+      # repo stays on branch-deploy and this workflow would publish nothing.
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - name: Stage the published site
+        run: |
+          set -euo pipefail
+          mkdir -p _site
+          # git archive ships exactly the tracked files, so anything in
+          # .gitignore (uploads/, *.dc.html, support.js, image-slot.js)
+          # can never leak into the published site. Only git and tar are
+          # needed -- no rsync, no npm, nothing that can vanish from the
+          # runner image.
+          git archive HEAD | tar -x -C _site
+          # Repo plumbing and source-only material that has no business
+          # being served as part of the site.
+          rm -rf _site/.github _site/.claude _site/.gitattributes _site/.gitignore
+          rm -rf _site/google-apps-script _site/DNS-GODADDY.md _site/README.md
+
+      - name: Sanity-check the artifact
+        run: |
+          set -euo pipefail
+          # A site with no entry point is the one failure worth stopping for.
+          if [ ! -s _site/index.html ]; then
+            echo "::error::index.html is missing or empty -- refusing to publish"
+            exit 1
+          fi
+          # Pages serves files as-is only when .nojekyll is present. Recreate
+          # it rather than fail, so a stray deletion cannot break a deploy.
+          [ -f _site/.nojekyll ] || touch _site/.nojekyll
+          if [ -s _site/CNAME ]; then
+            echo "Custom domain in artifact: $(cat _site/CNAME)"
+          else
+            echo "::notice::No CNAME file -- publishing to the github.io URL."
+          fi
+          echo "--- files being published ---"
+          find _site -type f | sort
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
