@@ -107,6 +107,26 @@ Two things it will **not** do on its own, both on purpose:
 - `localStorage` keys like `airakhi_joined` are reported, not rewritten —
   renaming one silently logs every returning visitor out.
 
+### Where the site says it lives
+
+`base_url` in `tools/brand.json` is the URL the site is actually served from,
+and the tool points `canonical`, `og:url`, `og:image`, `twitter:image`,
+`sitemap.xml`, `robots.txt` and the 404 link at it.
+
+Keep it honest. These tags fail *silently* — the page looks perfect while a
+canonical aimed at an unwired domain hands your Google ranking to whatever is
+parked there, and an `og:image` that 404s means every WhatsApp and LinkedIn
+share goes out with a blank rectangle. `.\rebrand.ps1 -Check` now fails if any
+of them drift.
+
+Right now it is the GitHub Pages URL, because `airakhi.online` resolves to a
+GoDaddy "launching soon" page. **When DNS actually points at GitHub Pages** and
+`CNAME` is restored (`DNS-GODADDY.md`), switch it over:
+
+```powershell
+.\rebrand.ps1 -BaseUrl "https://www.airakhi.online/" -Save
+```
+
 ### Everything is a setting
 
 `tools/brand.json` is the source of truth: name, wordmark split, tagline,

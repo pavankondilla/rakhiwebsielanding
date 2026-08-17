@@ -11,6 +11,18 @@
   "domain": "airakhi.online",
   "host": "www.airakhi.online",
 
+  "$comment_base_url": [
+    "Where the site is ACTUALLY served from, trailing slash included.",
+    "canonical, og:url, og:image, twitter:image, sitemap and robots all point",
+    "here. Keep it pointed at the live URL: aiming these at a domain that is",
+    "parked or unwired tells Google the parking page is the real page, and",
+    "leaves every share preview without an image.",
+    "When DNS finally points airakhi.online at GitHub Pages and CNAME is back,",
+    "change this to https://www.airakhi.online/ and re-run."
+  ],
+  "base_url": "https://pavankondilla.github.io/rakhiwebsielanding/",
+  "og_image": "assets/og-cover.jpg",
+
   "logo": "airakhi-logo.png",
 
   "crop": "top:606",

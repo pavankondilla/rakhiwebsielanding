@@ -85,10 +85,19 @@ def load_brand(args) -> dict:
     except json.JSONDecodeError as e:
         raise Fail(f"{CONFIG.name} is not valid JSON -- {e}")
 
-    for key in ("name", "logo", "crop", "tagline", "domain", "host"):
+    for key in ("name", "logo", "crop", "tagline", "domain", "host", "base_url"):
         val = getattr(args, key, None)
         if val:
             brand[key] = val
+
+    # Where the site is really served from. Defaults to the canonical host, but
+    # a GitHub project page lives under /<repo>/, which a bare host cannot say.
+    brand["base_url"] = (brand.get("base_url") or f'https://{brand["host"]}/')
+    if not brand["base_url"].endswith("/"):
+        brand["base_url"] += "/"
+    if not re.match(r"^https?://", brand["base_url"]):
+        raise Fail(f'base_url {brand["base_url"]!r} must start with http:// or https://')
+    brand["og_image"] = brand.get("og_image", "assets/og-cover.jpg").lstrip("/")
 
     for key in ("name", "logo", "domain", "host"):
         if not brand.get(key):
@@ -561,6 +570,58 @@ def sync_text(brand, dry_run, log):
     return total
 
 
+def sync_urls(brand, dry_run, log):
+    """Point every absolute self-reference at the URL the site is really served
+    from.
+
+    These are the tags nobody notices until they are wrong. A canonical aimed at
+    a parked domain hands your ranking to the parking page; an og:image that
+    404s means every WhatsApp and LinkedIn share of a launch page goes out with
+    a blank rectangle. Both fail silently -- the page itself looks perfect.
+
+    Kept separate from the brand-name sweep because these are structural URLs,
+    not prose: each one is matched by the tag it lives in and replaced whole,
+    never by substring, so re-running can never double up a path."""
+    base = brand["base_url"]
+    og = base + brand["og_image"]
+
+    rules = [
+        ("index.html",  r'(<link rel="canonical" href=")([^"]*)(">)',            base),
+        ("index.html",  r'(<meta property="og:url" content=")([^"]*)(">)',       base),
+        ("index.html",  r'(<meta property="og:image" content=")([^"]*)(">)',     og),
+        ("index.html",  r'(<meta name="twitter:image" content=")([^"]*)(">)',    og),
+        ("sitemap.xml", r'(<loc>)([^<]*)(</loc>)',                               base),
+        ("robots.txt",  r'(Sitemap:[ \t]*)(\S+)()',                    base + "sitemap.xml"),
+        ("404.html",    r'(<a href=")(https?://[^"]*)(">)',                      base),
+    ]
+
+    changes: dict[str, list[tuple[str, str]]] = {}
+    for rel, pattern, target in rules:
+        path = ROOT / rel
+        if not path.exists():
+            continue
+        text = path.read_text(encoding="utf-8")
+
+        def swap(m):
+            if m.group(2) != target:
+                changes.setdefault(rel, []).append((m.group(2), target))
+            return m.group(1) + target + m.group(3)
+
+        updated = re.sub(pattern, swap, text)
+        if updated != text and not dry_run:
+            path.write_text(updated, encoding="utf-8", newline="")
+
+    if changes:
+        verb = "would repoint" if dry_run else "repointed"
+        for rel, pairs in changes.items():
+            for old, new in pairs:
+                log(f"{verb} {rel}")
+                log(f"           {old}  ->  {new}")
+    else:
+        log(f"urls       already point at {base}")
+    return sum(len(v) for v in changes.values())
+
+
 def flag_manual(brand, log):
     """Identifiers a text sweep must not touch on its own: localStorage keys and
     the like, where a blind rename would silently drop returning visitors."""
@@ -610,6 +671,26 @@ def verify(brand, log) -> list[str]:
             if ref not in text:
                 problems.append(f"index.html no longer references {ref}")
 
+        # The silent-failure tags. Wrong here and the page still looks perfect.
+        base, og = brand["base_url"], brand["base_url"] + brand["og_image"]
+        for label, pattern, want in (
+            ("canonical", r'<link rel="canonical" href="([^"]*)"', base),
+            ("og:url", r'<meta property="og:url" content="([^"]*)"', base),
+            ("og:image", r'<meta property="og:image" content="([^"]*)"', og),
+            ("twitter:image", r'<meta name="twitter:image" content="([^"]*)"', og),
+        ):
+            m = re.search(pattern, text)
+            if not m:
+                problems.append(f"index.html has no {label} tag")
+            elif m.group(1) != want:
+                problems.append(f"{label} points at {m.group(1)} -- should be {want}")
+
+    sm = ROOT / "sitemap.xml"
+    if sm.exists():
+        m = re.search(r"<loc>([^<]*)</loc>", sm.read_text(encoding="utf-8"))
+        if m and m.group(1) != brand["base_url"]:
+            problems.append(f"sitemap.xml lists {m.group(1)} -- should be {brand['base_url']}")
+
     if problems:
         log("\nFAILED:")
         for p in problems:
@@ -635,6 +716,8 @@ def main(argv=None) -> int:
     p.add_argument("--tagline", help="one line under the name on the social card")
     p.add_argument("--domain", help='registrable domain, e.g. "airakhi.online"')
     p.add_argument("--host", help='canonical host, e.g. "www.airakhi.online"')
+    p.add_argument("--base-url", dest="base_url",
+                   help="URL the site is really served from, e.g. https://user.github.io/repo/")
     p.add_argument("--only", choices=("assets", "text"), help="run just one half")
     p.add_argument("--dry-run", action="store_true", help="report changes, write nothing")
     p.add_argument("--check", action="store_true", help="verify the current state and exit")
@@ -672,6 +755,7 @@ def main(argv=None) -> int:
 
         if args.only != "assets":
             sync_text(brand, args.dry_run, log)
+            sync_urls(brand, args.dry_run, log)
             flag_manual(brand, log)
 
         if args.save and not args.dry_run:

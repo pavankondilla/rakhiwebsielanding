@@ -27,6 +27,13 @@
     Run with -Map first if you are not sure -- it writes a ruled copy of the
     logo so you can read the y value straight off the image.
 
+.PARAMETER BaseUrl
+    The URL the site is really served from, trailing slash included. Drives
+    canonical, og:url, og:image, twitter:image, sitemap.xml, robots.txt and the
+    404 link. Point it at a domain that is parked or not yet wired to Pages and
+    those tags fail silently -- the page looks fine while search engines and
+    share previews follow them somewhere else.
+
 .PARAMETER Open
     Open the generated preview images when the run finishes.
 
@@ -54,6 +61,7 @@ param(
     [string]$Tagline,
     [string]$Domain,
     [Alias('Host')][string]$WebHost,   # $Host is reserved in PowerShell, hence WebHost
+    [string]$BaseUrl,
     [ValidateSet('assets', 'text')][string]$Only,
     [switch]$Map,
     [switch]$Preview,
@@ -149,6 +157,7 @@ if ($Crop)    { $argv += @('--crop',    $Crop) }
 if ($Tagline) { $argv += @('--tagline', $Tagline) }
 if ($Domain)  { $argv += @('--domain',  $Domain) }
 if ($WebHost) { $argv += @('--host',    $WebHost) }
+if ($BaseUrl) { $argv += @('--base-url', $BaseUrl) }
 if ($Only)    { $argv += @('--only',    $Only) }
 if ($Map)     { $argv += '--map' }
 if ($Preview) { $argv += '--preview' }
