@@ -604,6 +604,16 @@ def sync_urls(brand, dry_run, log):
                 ("index.html", rf'(<a class="social" href=")([^"]*)(" target)', url)
             )
 
+    # The GA4 measurement ID appears twice per page -- once in the loader URL,
+    # once in the config call -- and a page where those two disagree still
+    # loads, still shows no error, and quietly reports to the wrong property.
+    # Both are pinned to brand.json so they cannot drift apart.
+    ga4 = (brand.get("analytics") or {}).get("ga4", "")
+    if ga4:
+        for page in ("index.html", "404.html"):
+            rules.append((page, r'(gtag/js\?id=)([^"]*)(")', ga4))
+            rules.append((page, r"(gtag\('config', ')([^']*)('\))", ga4))
+
     changes: dict[str, list[tuple[str, str]]] = {}
     for rel, pattern, target in rules:
         path = ROOT / rel
@@ -697,6 +707,21 @@ def verify(brand, log) -> list[str]:
         for network, url in (brand.get("social") or {}).items():
             if url and url not in text:
                 problems.append(f"index.html does not link to the {network} profile {url}")
+
+    ga4 = (brand.get("analytics") or {}).get("ga4", "")
+    for page in ("index.html", "404.html"):
+        path = ROOT / page
+        if not path.exists():
+            continue
+        body = path.read_text(encoding="utf-8")
+        found = set(re.findall(r"G-[A-Z0-9]{6,}", body))
+        if ga4:
+            if not found:
+                problems.append(f"{page} carries no analytics tag")
+            elif found != {ga4}:
+                problems.append(f"{page} reports to {sorted(found)} -- should be only {ga4}")
+        elif found:
+            problems.append(f"{page} still has analytics {sorted(found)} but brand.json sets none")
 
     sm = ROOT / "sitemap.xml"
     if sm.exists():

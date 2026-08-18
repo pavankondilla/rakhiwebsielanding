@@ -27,6 +27,15 @@
     "instagram": "https://www.instagram.com/airakhi.online/"
   },
 
+  "$comment_analytics": [
+    "Google Analytics 4 measurement ID (G-...). This is gtag.js, not Tag",
+    "Manager -- a GTM container would be GTM-... and needs a different",
+    "snippet. Set to \"\" to strip analytics out of the pages entirely."
+  ],
+  "analytics": {
+    "ga4": "G-H11CZZKMXY"
+  },
+
   "logo": "airakhi-logo.png",
 
   "crop": "top:606",
