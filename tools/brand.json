@@ -3,14 +3,14 @@
     "Single source of truth for the brand. Edit this, run `rebrand.ps1`, done.",
     "Every field is also overridable on the command line -- see rebrand.py --help."
   ],
-
   "name": "AiRakhi",
-  "name_split": ["Ai", "Rakhi"],
+  "name_split": [
+    "Ai",
+    "Rakhi"
+  ],
   "tagline": "The world's first AI rakhi",
-
   "domain": "airakhi.online",
   "host": "www.airakhi.online",
-
   "$comment_base_url": [
     "Where the site is ACTUALLY served from, trailing slash included.",
     "canonical, og:url, og:image, twitter:image, sitemap and robots all point",
@@ -20,13 +20,11 @@
     "When DNS finally points airakhi.online at GitHub Pages and CNAME is back,",
     "change this to https://www.airakhi.online/ and re-run."
   ],
-  "base_url": "https://pavankondilla.github.io/rakhiwebsielanding/",
+  "base_url": "https://www.airakhi.online/",
   "og_image": "assets/og-cover.jpg",
-
   "social": {
     "instagram": "https://www.instagram.com/airakhi.online/"
   },
-
   "$comment_analytics": [
     "Google Analytics 4 measurement ID (G-...). This is gtag.js, not Tag",
     "Manager -- a GTM container would be GTM-... and needs a different",
@@ -35,28 +33,33 @@
   "analytics": {
     "ga4": "G-H11CZZKMXY"
   },
-
   "logo": "airakhi-logo.png",
-
   "crop": "top:606",
-
-  "name_aliases": ["AiRakhi", "Airakhi", "AIRakhi", "Bandhan.ai", "Bandhan.AI"],
-  "domain_aliases": ["airakhi.online", "www.airakhi.online", "bandhan.ai", "www.bandhan.ai"],
-
+  "name_aliases": [
+    "AiRakhi",
+    "Airakhi",
+    "AIRakhi",
+    "Bandhan.ai",
+    "Bandhan.AI"
+  ],
+  "domain_aliases": [
+    "airakhi.online",
+    "www.airakhi.online",
+    "bandhan.ai",
+    "www.bandhan.ai"
+  ],
   "protect": [
     "Raksha Bandhan",
     "raksha bandhan",
     "World's first AI Rakhi",
     "world's first AI rakhi"
   ],
-
   "colors": {
     "ink": "#240A10",
     "cream": "#F7EAE6",
     "rose": "#F0657A",
     "gold": "#DFB05A"
   },
-
   "sync_files": [
     "index.html",
     "404.html",

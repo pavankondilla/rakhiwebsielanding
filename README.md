@@ -3,11 +3,15 @@
 The world's first AI rakhi. Static landing page + a Google Apps Script backend that
 writes every signup into a Google Sheet.
 
-**Live:** https://pavankondilla.github.io/rakhiwebsielanding/
+**Live:** https://www.airakhi.online/
 
-The custom domain (`www.airakhi.online`) is **not active**. `CNAME` was removed
-from the repo and the DNS records still point away from GitHub. See
-`DNS-GODADDY.md` to turn it back on.
+The custom domain is **active**: DNS points at GitHub Pages
+(185.199.108-110.153), the domain is set on the repo with HTTPS enforced, and
+`CNAME` is tracked so the workflow ships it in every artifact. The old
+`pavankondilla.github.io/rakhiwebsielanding/` URL 301s here.
+
+If it ever falls back to the `github.io` URL, check `CNAME` survived the last
+commit; `DNS-GODADDY.md` has the exact records.
 
 ---
 
@@ -23,14 +27,14 @@ from the repo and the DNS records still point away from GitHub. See
 | `.github/workflows/deploy.yml` | Publishes the site to GitHub Pages on every push to `main`. |
 | `.nojekyll` | Tells GitHub Pages to serve files as-is (no Jekyll processing). |
 | `robots.txt`, `sitemap.xml` | Basic SEO. |
+| `CNAME` | The custom domain. Ships in every artifact; losing it drops the domain. |
 | `DNS-GODADDY.md` | Exact GoDaddy records for the custom domain. |
 | `google-apps-script/Code.gs` | The waitlist backend. Paste into Apps Script. |
 | `google-apps-script/SETUP.md` | Step-by-step deployment of the backend. |
 
-> To serve the custom domain again, restore a `CNAME` file containing
-> `www.airakhi.online` **and** point DNS at GitHub (`DNS-GODADDY.md`). Once
-> `CNAME` exists the workflow ships it automatically. If it disappears from a
-> commit, GitHub drops the domain and the site falls back to the `github.io` URL.
+> `CNAME` is what keeps the custom domain attached. It is a tracked file, so
+> the workflow ships it automatically. If it disappears from a commit, GitHub
+> drops the domain and the site falls back to the `github.io` URL.
 
 There are no dependencies. The only external request is the Google Fonts
 stylesheet (loaded non-blocking) and the form POST to Apps Script.
@@ -119,12 +123,13 @@ parked there, and an `og:image` that 404s means every WhatsApp and LinkedIn
 share goes out with a blank rectangle. `.\rebrand.ps1 -Check` now fails if any
 of them drift.
 
-Right now it is the GitHub Pages URL, because `airakhi.online` resolves to a
-GoDaddy "launching soon" page. **When DNS actually points at GitHub Pages** and
-`CNAME` is restored (`DNS-GODADDY.md`), switch it over:
+It is `https://www.airakhi.online/`, which is where the site now actually
+serves from. Point it at anything else and you are declaring a canonical URL
+that redirects -- the very ambiguity canonical tags exist to remove. To move
+it later:
 
 ```powershell
-.\rebrand.ps1 -BaseUrl "https://www.airakhi.online/" -Save
+.\rebrand.ps1 -BaseUrl "https://example.com/" -Save
 ```
 
 ### Everything is a setting

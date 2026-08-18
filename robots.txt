@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://pavankondilla.github.io/rakhiwebsielanding/sitemap.xml
+Sitemap: https://www.airakhi.online/sitemap.xml
