@@ -97,6 +97,13 @@ p{text-wrap:pretty}
 .btn:hover{background:var(--rose-dark);color:#FFF6F7;transform:translateY(-1px)}
 .btn:disabled{opacity:.62;cursor:progress;transform:none}
 .btn-lg{padding:clamp(15px,1.2vw,18px) clamp(26px,2.6vw,34px);font-size:clamp(15px,.4vw + 13px,16.5px)}
+.btn-try{
+  background:transparent;color:var(--cream);border:1.5px solid var(--line);
+  box-shadow:none;
+}
+.btn-try:hover{background:rgba(247,234,230,.06);color:#FFF;border-color:rgba(247,234,230,.32);transform:translateY(-1px)}
+.btn-try .free{color:var(--gold);font-weight:800}
+.hdr-cta{display:inline-flex;align-items:center;gap:10px}
 
 /* ---------- header ---------- */
 .hdr{position:sticky;top:0;z-index:60;background:rgba(36,10,16,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(247,234,230,.12)}
@@ -110,10 +117,13 @@ p{text-wrap:pretty}
 .nav a:hover{color:var(--cream)}
 .nav .btn{padding:10px 20px;font-size:14px;color:#FFF6F7}
 @media(max-width:820px){.nav .lnk{display:none}}
+@media(max-width:480px){.hdr-cta .btn-try{display:none}}
 @media(max-width:400px){
   .brand .name{font-size:19px}
   .logo{height:38px}
   .nav .btn{padding:9px 15px;font-size:13px}
+  .hdr-cta{gap:6px}
+  .hdr-cta .btn-try .free{display:none}
   .count div{padding:11px 8px;min-width:0;flex:1 1 0}
   .count small{font-size:8.5px;letter-spacing:.08em}
 }
@@ -286,7 +296,10 @@ select option{background:var(--ink-2);color:var(--cream)}
       <a class="lnk" href="#ar">The AR rakhi</a>
       <a class="lnk" href="#story">Our story</a>
       <a class="lnk" href="#how">How it works</a>
-      <a class="btn" href="#access">Get first access</a>
+      <span class="hdr-cta">
+        <a class="btn btn-try" href="https://frabjous-lebkuchen-8ad301.netlify.app" target="_blank" rel="noopener noreferrer">Try now <span class="free">— free</span></a>
+        <a class="btn" href="#access">Get first access</a>
+      </span>
     </nav>
   </div>
 </header>
@@ -316,7 +329,10 @@ select option{background:var(--ink-2);color:var(--cream)}
   <div class="hero-cta">
     <div class="rule" aria-hidden="true"></div>
     <p>Nearly <strong>11 crore Indians</strong> spend Raksha Bandhan away from the people who would have tied it. AiRakhi is the world's first AI rakhi &mdash; your voice, your family's blessing, one link, anywhere on earth.</p>
-    <a class="btn btn-lg" href="#access">Get first access <span aria-hidden="true">&rarr;</span></a>
+    <div class="hero-btns" style="display:flex;flex-wrap:wrap;gap:12px">
+      <a class="btn btn-lg btn-try" href="https://frabjous-lebkuchen-8ad301.netlify.app" target="_blank" rel="noopener noreferrer">Try now <span class="free">— free</span> <span aria-hidden="true">&rarr;</span></a>
+      <a class="btn btn-lg" href="#access">Get first access</a>
+    </div>
   </div>
 
   <div class="hero-art">
