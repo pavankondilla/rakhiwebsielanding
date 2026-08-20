@@ -263,6 +263,22 @@ select option{background:var(--ink-2);color:var(--cream)}
 .social:hover svg{opacity:1}
 .legal{max-width:var(--wrap);margin:34px auto 0;padding-top:20px;border-top:1px solid rgba(247,234,230,.12);display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;font-size:12.5px;color:var(--cream-72)}
 
+.qj-overlay{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;padding:18px;background:rgba(15,4,7,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity .28s ease}
+.qj-overlay.show{opacity:1;pointer-events:auto}
+.qj-modal{position:relative;width:min(408px,100%);max-height:calc(100svh - 36px);overflow:auto;background:linear-gradient(170deg,var(--ink),var(--ink-2));border:1px solid rgba(223,176,90,.34);border-radius:22px;box-shadow:0 30px 80px -30px rgba(0,0,0,.7);padding:clamp(22px,4vw,30px);transform:translateY(14px) scale(.98);opacity:0;transition:transform .32s cubic-bezier(.2,.8,.2,1),opacity .32s ease}
+.qj-overlay.show .qj-modal{transform:translateY(0) scale(1);opacity:1}
+.qj-close{position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--cream-72);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:17px;line-height:1;padding:0;transition:background .16s ease,color .16s ease}
+.qj-close:hover{background:rgba(247,234,230,.08);color:var(--cream)}
+.qj-modal h3{font-family:var(--serif);font-size:24px;font-weight:600;margin:8px 0 6px;padding-right:26px}
+.qj-modal .sub{margin:0 0 18px;font-size:14px;line-height:1.55;color:var(--cream-72)}
+.qj-modal form{display:flex;flex-direction:column;gap:14px}
+.qj-modal .btn{width:100%;white-space:normal;text-align:center;padding-left:18px;padding-right:18px}
+.qj-fine{margin:2px 0 0}
+.qj-alt{display:block;text-align:center;margin-top:14px;font-size:12.5px;color:var(--cream-72)}
+.qj-alt a{font-weight:600}
+.qj-done{display:flex;flex-direction:column;gap:12px;animation:rise .4s ease both}
+.qj-done p{margin:0;font-size:14.5px;line-height:1.6;color:var(--cream-80)}
+
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .marq-track{animation:none}
@@ -698,6 +714,54 @@ select option{background:var(--ink-2);color:var(--cream)}
   </div>
 </footer>
 
+<!-- ============ QUICK-JOIN POPUP ============
+     Appears once, 5s after load, unless already joined or dismissed this
+     session. Deliberately three fields -- name, phone, "sending it to" --
+     the full form (with email) stays one click away for anyone who wants it. -->
+<div class="qj-overlay" id="qjOverlay" hidden>
+  <div class="qj-modal" role="dialog" aria-modal="true" aria-labelledby="qjTitle">
+    <button type="button" class="qj-close" id="qjCloseBtn" aria-label="Close">&times;</button>
+
+    <div class="qj-done" id="qjDone" hidden>
+      <div class="tick" aria-hidden="true">&#10003;</div>
+      <h3>You're on the list.</h3>
+      <p>We've reserved your spot and will reach out on <strong id="qjDonePhone">your number</strong> before first access opens.</p>
+    </div>
+
+    <form id="qjForm">
+      <div class="eyebrow">First access &middot; free for the first 10,000</div>
+      <h3 id="qjTitle">Grab your spot before it fills.</h3>
+      <p class="sub">Just the essentials &mdash; takes ten seconds.</p>
+
+      <label>Your name
+        <input id="qj-name" name="name" type="text" autocomplete="name" placeholder="Ananya Sharma" required>
+      </label>
+      <label>Phone number
+        <input id="qj-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+91 98765 43210" required>
+      </label>
+      <label>Sending it to
+        <select id="qj-segment" name="segment">
+          <option>Sibling in India</option>
+          <option>Sibling abroad</option>
+          <option value="Parents">Mother or father</option>
+          <option>Partner</option>
+          <option value="Serving in the forces">Someone serving in the forces</option>
+          <option value="Chosen family">Chosen family or friend</option>
+        </select>
+      </label>
+
+      <div class="err" id="qjErr" role="alert" hidden></div>
+      <button class="btn" type="submit" id="qjSubmitBtn">
+        <span id="qjBtnLabel">Send me the first-access link</span>
+      </button>
+      <p class="fine qj-fine">Free for the first 10,000 families. No spam, no resale of data.</p>
+    </form>
+
+    <a class="qj-alt" href="#access" id="qjAltLink">Prefer the full form with email? &rarr;</a>
+  </div>
+</div>
+
+
 <script>
 (function () {
   "use strict";
@@ -854,6 +918,7 @@ select option{background:var(--ink-2);color:var(--cream)}
   }
 
   function succeed(email, handle) {
+    qjStopSchedule();   // joined via the full form -- cancel any pending popup
     $("doneEmail").textContent = email;
     $("doneHandle").textContent = "airakhi.online/" + handle;
     formBox.hidden = true;
@@ -920,15 +985,198 @@ select option{background:var(--ink-2);color:var(--cream)}
     $("f-name").focus();
   });
 
+  /* ------------------------------------------------------------------
+   * 4. Quick-join popup -- first access, 5s after load
+   *
+   * Code.gs (unchanged, and staying that way) requires a valid-format email
+   * on every row -- see validate_() -- so this trimmed-down form, which asks
+   * only for name, phone and "sending it to", cannot submit successfully as
+   * a bare 3-field payload without the backend rejecting it. Rather than add
+   * an email field back (defeating the point of "limited details") or touch
+   * Apps Script, it sends a synthetic address built from the phone number
+   * under @quickjoin.airakhi.online. That domain is never used to send mail;
+   * it exists purely so buildRecord_()'s validation passes. The Message
+   * column is stamped so these rows are easy to tell apart in the sheet, and
+   * follow-up happens on the phone number actually collected.
+   * ---------------------------------------------------------------- */
+  /* Three showings, then it stops asking. Closing one does NOT cancel the
+     next -- that is the point of having three. Submitting cancels every
+     one that is still pending, so nobody who has already joined is asked
+     again. */
+  var QJ_SHOW_AT = [5000, 15000, 30000];
+  var QJ_EMAIL_DOMAIN = "quickjoin.airakhi.online";
+
+  var qjTimers = [];
+  var qjJoined = false;
+
+  var qjOverlay = $("qjOverlay"), qjForm = $("qjForm"), qjErr = $("qjErr");
+  var qjBtn = $("qjSubmitBtn"), qjBtnLabel = $("qjBtnLabel"), qjDone = $("qjDone");
+  var qjBusy = false, qjLastFocus = null;
+
+  function isSyntheticEmail(email) {
+    return String(email || "").slice(-QJ_EMAIL_DOMAIN.length) === QJ_EMAIL_DOMAIN;
+  }
+
+  function alreadyJoined() {
+    try {
+      return !!JSON.parse(localStorage.getItem(JOINED_KEY) || localStorage.getItem("bandhan_joined") || "null");
+    } catch (e) { return false; }
+  }
+
+  function onQjKeydown(ev) {
+    if (ev.key === "Escape") { closeQuickJoin(); return; }
+    if (ev.key !== "Tab" || !qjOverlay) return;
+    var focusables = qjOverlay.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+    if (!focusables.length) return;
+    var list = Array.prototype.slice.call(focusables);
+    var firstEl = list[0], lastEl = list[list.length - 1];
+    if (ev.shiftKey && document.activeElement === firstEl) { lastEl.focus(); ev.preventDefault(); }
+    else if (!ev.shiftKey && document.activeElement === lastEl) { firstEl.focus(); ev.preventDefault(); }
+  }
+
+  function openQuickJoin() {
+    if (!qjOverlay || qjOverlay.classList.contains("show")) return;
+    qjLastFocus = document.activeElement;
+    qjOverlay.hidden = false;
+    requestAnimationFrame(function () { qjOverlay.classList.add("show"); });
+    document.body.style.overflow = "hidden";
+    var first = $("qj-name");
+    setTimeout(function () { if (first) first.focus(); }, reduce ? 0 : 260);
+    document.addEventListener("keydown", onQjKeydown);
+  }
+
+  function closeQuickJoin() {
+    if (!qjOverlay) return;
+    qjOverlay.classList.remove("show");
+    document.body.style.overflow = "";
+    document.removeEventListener("keydown", onQjKeydown);
+    setTimeout(function () { qjOverlay.hidden = true; }, reduce ? 0 : 300);
+    if (qjLastFocus && qjLastFocus.focus) qjLastFocus.focus();
+  }
+
+  /* Called the moment anyone joins -- from this popup or from the full form
+     further down the page -- so the remaining showings never fire. */
+  function qjStopSchedule() {
+    qjJoined = true;
+    for (var i = 0; i < qjTimers.length; i++) { clearTimeout(qjTimers[i]); }
+    qjTimers.length = 0;
+  }
+
+  if (qjOverlay) {
+    qjOverlay.addEventListener("mousedown", function (ev) {
+      if (ev.target === qjOverlay) closeQuickJoin();
+    });
+    var qjCloseBtn = $("qjCloseBtn");
+    if (qjCloseBtn) qjCloseBtn.addEventListener("click", function () { closeQuickJoin(); });
+
+    var qjAlt = $("qjAltLink");
+    if (qjAlt) qjAlt.addEventListener("click", function (ev) {
+      ev.preventDefault();
+      closeQuickJoin();
+      var target = $("access");
+      if (target && target.scrollIntoView) target.scrollIntoView({ block: "start", behavior: reduce ? "auto" : "smooth" });
+      setTimeout(function () { var el = $("f-name"); if (el) el.focus(); }, reduce ? 0 : 420);
+    });
+
+    if (alreadyJoined()) {
+      qjJoined = true;              // joined on a previous visit -- never ask again
+    } else {
+      for (var qi = 0; qi < QJ_SHOW_AT.length; qi++) {
+        qjTimers.push(setTimeout(function () {
+          /* Re-checked at fire time, not just at schedule time: the visitor
+             may have joined through the full form since this was queued. */
+          if (qjJoined || alreadyJoined()) { qjStopSchedule(); return; }
+          openQuickJoin();          // no-ops if it is already on screen
+        }, QJ_SHOW_AT[qi]));
+      }
+    }
+  }
+
+  if (qjForm) {
+    qjForm.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      if (qjBusy) return;
+      qjErr.hidden = true;
+      qjErr.textContent = "";
+
+      var qName = $("qj-name").value.trim();
+      var qPhone = $("qj-phone").value.trim();
+      var qSegment = $("qj-segment").value;
+
+      if (!qName) {
+        qjErr.textContent = "Please add your name so we know who to greet.";
+        qjErr.hidden = false; $("qj-name").focus(); return;
+      }
+      var qDigits = qPhone.replace(/\D/g, "");
+      if (qDigits.length < 10 || qDigits.length > 15) {
+        qjErr.textContent = "Please add a phone number we can reach you on.";
+        qjErr.hidden = false; $("qj-phone").focus(); return;
+      }
+
+      var syntheticEmail = qDigits + "@" + QJ_EMAIL_DOMAIN;
+      var qHandle = makeHandle(qName, syntheticEmail);
+      var qPayload = Object.assign({
+        action: "submit",
+        name: qName,
+        email: syntheticEmail,
+        phone: qPhone,
+        segment: qSegment,
+        message: "Submitted via the 5-second quick-join popup.",
+        feedback: "",
+        handle: qHandle
+      }, context());
+
+      qjBusy = true;
+      qjBtn.disabled = true;
+      qjBtnLabel.textContent = "Reserving your rakhi\u2026";
+
+      postJson(qPayload)
+        .catch(function () { return jsonpSubmit(qPayload); })
+        .then(function (res) {
+          if (res && res.ok) {
+            try {
+              localStorage.setItem(JOINED_KEY, JSON.stringify({
+                email: syntheticEmail, handle: res.handle || qHandle, phone: qPhone
+              }));
+            } catch (e) {}
+            qjStopSchedule();
+            $("qjDonePhone").textContent = qPhone;
+            qjForm.hidden = true;
+            qjDone.hidden = false;
+            // They just joined -- offering the longer form now is noise.
+            var altLink = $("qjAltLink");
+            if (altLink) altLink.hidden = true;
+            setTimeout(function () { closeQuickJoin(); }, 3200);
+          } else {
+            qjErr.textContent = (res && res.error && res.error.message) || "We couldn't save your details. Please try again.";
+            qjErr.hidden = false;
+          }
+        })
+        .catch(function () {
+          qjErr.textContent = "We couldn't reach the server. Check your connection and try once more.";
+          qjErr.hidden = false;
+        })
+        .then(function () {
+          qjBusy = false;
+          qjBtn.disabled = false;
+          qjBtnLabel.textContent = "Send me the first-access link";
+        });
+    });
+  }
+
   /* Returning visitor who already joined on this device. Falls back to the
      pre-rename key so anyone who joined before still sees their confirmation
-     instead of an empty form. */
+     instead of an empty form. A quick-join popup submission never collected
+     a real email, so it shows the phone number back instead of the
+     synthetic @quickjoin.airakhi.online placeholder. */
   try {
     var saved = JSON.parse(
       localStorage.getItem(JOINED_KEY) || localStorage.getItem("bandhan_joined") || "null"
     );
     if (saved && saved.email) {
-      $("doneEmail").textContent = saved.email;
+      $("doneEmail").textContent = isSyntheticEmail(saved.email)
+        ? "your number" + (saved.phone ? " (" + saved.phone + ")" : "")
+        : saved.email;
       $("doneHandle").textContent = "airakhi.online/" + (saved.handle || makeHandle("", saved.email));
       formBox.hidden = true;
       doneBox.hidden = false;
